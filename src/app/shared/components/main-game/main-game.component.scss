@@ -1,0 +1,37 @@
+@import "../../../../style/_classes.scss";
+@import "../../../../style/_colors.scss";
+
+section {
+  background: url(../../../../assets/mainBack.png) no-repeat center top / cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  .loading {
+    justify-content: center;
+    text-align: center;
+  }
+  .game_table {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    div {
+      width: 80vw;
+      p {
+        font-weight: 900;
+        font-size: 1.5rem;
+        text-align: right;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+    }
+    app-game-table,
+    app-one-question {
+      width: 100%;
+    }
+  }
+}
+
+.container {
+  width: 100vw !important;
+}

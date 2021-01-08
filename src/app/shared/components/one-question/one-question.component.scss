@@ -1,0 +1,82 @@
+@import "../../../../style/_classes.scss";
+@import "../../../../style/_colors.scss";
+
+.question {
+  &_top {
+    background: $red;
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border: 0.375rem solid $red;
+    h3 {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+  }
+  &_graphic {
+    border: 0.375rem solid $red;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    .onevideo {
+      width: 100%;
+      height: 40vh;
+    }
+    .onePicture {
+      max-height: 40vh;
+      max-width: 100%;
+    }
+  }
+  &_answer {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 1vw;
+    p {
+      width: 30%;
+      border: 0.375rem solid $red;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      height: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      &:first-child {
+        border-bottom-left-radius: 1rem;
+      }
+      &:last-child {
+        border-bottom-right-radius: 1rem;
+      }
+    }
+  }
+  &_continue {
+    margin-top: 1rem;
+    p {
+      font-weight: 900;
+      font-size: 1.5rem;
+      text-align: right;
+      cursor: pointer;
+    }
+  }
+}
+
+.chooseAnAnswer {
+  border: 0.375rem solid #856404 !important;
+  background: #fff3cd !important;
+}
+
+.answerTrue {
+  border: 0.375rem solid #155724 !important;
+  background: #d4edda !important;
+}
+
+.answerFalse {
+  border: 0.375rem solid #721c24 !important;
+  background: #f8d7da !important;
+}

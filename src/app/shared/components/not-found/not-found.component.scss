@@ -1,0 +1,12 @@
+@import "../../../../style/_classes.scss";
+@import "../../../../style/_colors.scss";
+
+section {
+  height: 100vh;
+  padding: 1% 10%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background: url(../../../../assets/mainBack.png) no-repeat center top / cover;
+  justify-content: center;
+}

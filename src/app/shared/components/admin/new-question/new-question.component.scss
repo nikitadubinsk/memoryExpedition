@@ -1,0 +1,13 @@
+@import "../../../../../style/_classes.scss";
+@import "../../../../../style/_colors.scss";
+
+section {
+  background: url(../../../../../assets/mainBack.png) no-repeat center top / cover;
+  form {
+    width: 70%;
+    textarea {
+      height: 5rem;
+      resize: none;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<section id="biblioNight" class="container">
+  <h1 class="white">Онлайн-игра «Экспедиция памяти»</h1>
+</section>
+
+<section id="war" class="container">
+  <div>
+    <p>Каждый год Россия отмечает Победу в Великой Отечественной войне. Это событие осталось в памяти народа как
+      символ народной стойкости и героизма в защите Родины. Четыре года длилась эта война, и все эти годы люди
+      научились жить и считаться с ней, переживая лишения, голод, потери самых близких людей. Нет в России такой
+      семьи, в которой не было бы своего героя. Деды и прадеды, бабушки и прабабушки каждый день совершали свой
+      подвиг, каждый внёс свой вклад в дело Великой Победы над захватчиками. Мы и сегодня благодарны тем, кто
+      подарил нам эту Победу!</p>
+    <p>Благодаря единству и сплоченности, трудолюбию и самоотверженности, невероятной любви к Родине наши предки
+      обеспечили нам мир, свободу и независимость.</p>
+    <p>А всё ли известно нам об этой войне? <br>Ивановская областная библиотека для детей и юношества предлагает вам
+      проверить свои знания и ответить на вопросы онлайн - игры «Экспедиция памяти».</p>
+  </div>
+  <img src="../../../../assets/logo.png">
+</section>
+
+<section id="form" class="container white">
+  <h2>Правила игры</h2>
+  <p>Игра состоит из 5 разделов, связанных с тематикой Великой Отечественной войны по 6 вопросов в каждой
+    категории. Вопросы представлены в форме тестирования с вариантами ответов. За каждый вопрос в зависимости от
+    уровня сложности можно получить от 10 до 60 баллов. В случае правильного ответа участнику засчитывают то
+    количество баллов, которое соответствует стоимости вопроса. Количество баллов за игру суммируется.</p>
+  <br>
+  <h3>ВАЖНО!</h3>
+  <p>В процессе прохождения игры следует соблюдать условия:</p>
+  <p>1. Не обновлять/перезагружать страницу</p>
+  <p>2. Не использовать для навигации по игре кпоки "вперед" и "назад"</p>
+  <p><strong>При несоблюдении этих условий могут возникнуть технические проблемы и результат не
+      сохранится.</strong></p>
+  <br>
+  <h3>Принять участие в игре может каждый желающий. Участие бесплатное.</h3>
+  <form [formGroup]="form" (ngSubmit)="startGame">
+    <h3>Для начала игры укажите Ваши данные</h3>
+    <div class="form-group">
+      <input formControlName="name" type="text" placeholder="Ваше ФИО" name="name" class="form-control block"
+        [ngClass]="{'is_invalid' : (form.get('name').invalid && form.get('name').touched), 'is_valid' : !form.get('name').invalid && form.get('name').touched}">
+    </div>
+    <div class="form-group">
+      <input formControlName="link" type="text" placeholder="Адрес электронной почты или ссылка на VK" name="link"
+        class="form-control block"
+        [ngClass]="{'is_invalid' : (form.get('link').invalid && form.get('link').touched), 'is_valid' : !form.get('link').invalid && form.get('link').touched}">
+    </div>
+    <div class="form-group personalData">
+      <input formControlName="personalData" type="checkbox" id="personalData" name="personalData">
+      <label for="personalData"><a class="white"
+          href="https://iv-obdu.ru/upload/iblock/f90/f903f9edd877ded2ab034777a12328f6.pdf" target="_blanck">Нажимая
+          кнопку отправки данных формы, я даю свое согласие ИОБДЮ на обработку моих
+          персональных данных, в соответствии с Федеральным законом от 27.07.2006 года № 152-ФЗ «О
+          персональных данных», на условиях и для целей, определенных Положением об обработке персональных
+          данных</a></label>
+    </div>
+    <button (click)="startGame()" [disabled]="form.invalid" class="btn btn-white block">Начать игру</button>
+  </form>
+</section>
+
+<footer class="container">
+  <div>
+    <h2 class="red">Экспедиция памяти</h2>
+    <a [routerLink]="['/login']" class="black">Зайти как администратор</a>
+    <small>Молодежный центр Ивановской областной библиотеки для детей и юношества</small>
+    <small>{{date.getFullYear()}}</small>
+  </div>
+  <ul>
+    <li><a href="https://vk.com/likehome37" target="_blanck"><i class="fab fa-vk"></i></a></li>
+    <li><a href="https://www.instagram.com/mc_iobdu/" target="_blanck"><i class="fab fa-instagram"></i></a></li>
+  </ul>
+</footer>

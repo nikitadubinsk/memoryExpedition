@@ -1,0 +1,62 @@
+@import "../../../../style/_classes.scss";
+@import "../../../../style/_colors.scss";
+
+#biblioNight {
+  width: 100%;
+  min-height: 45vh;
+  background: url(../../../../assets/biblioNight.jpg) no-repeat center top / cover;
+  display: flex;
+  align-items: center;
+  h1 {
+    width: 60%;
+    font-size: 3.75rem;
+  }
+}
+
+#war {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: url(../../../../assets/mainBack.png) no-repeat center top / cover;
+  div {
+    width: 65%;
+    p {
+      margin-bottom: 0.5rem;
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+  }
+  img {
+    width: 30%;
+  }
+}
+
+#form {
+  background: url(../../../../assets/formBack.jpg) no-repeat center top / cover;
+  form {
+    margin-top: 1rem;
+    width: 65%;
+    .personalData {
+      display: flex;
+      input {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  ul {
+    display: flex;
+    a {
+      font-size: 2rem;
+      margin: 0 0.3rem;
+      color: $red;
+      &:hover {
+        color: $bright_red;
+      }
+    }
+  }
+}

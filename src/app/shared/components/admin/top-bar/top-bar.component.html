@@ -1,0 +1,18 @@
+<section>
+  <div class="container">
+    <h1 class="red">Административная панель</h1>
+    <div class="i-group">
+      <i class="fas fa-sign-out-alt" (click)="logout()"></i>
+      <i class="fas fa-user" (click)="newUser()"></i>
+    </div>
+  </div>
+  <nav class="container">
+    <ul>
+      <li><a [routerLink]="['/admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          class="black">Список
+          участников</a></li>
+      <li><a [routerLink]="['/admin/newquestion']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          class="black">Добавить новый вопрос</a></li>
+    </ul>
+  </nav>
+</section>

@@ -1,0 +1,25 @@
+<section class="container">
+  <div class="loading">
+    <h3 class="red" *ngIf="loading">Загрузка...</h3>
+  </div>
+  <div *ngIf="!loading">
+    <table>
+      <tr>
+        <th>№</th>
+        <th>Имя</th>
+        <th>Ссылка на ВК или email</th>
+        <th>Дата прохождения</th>
+        <th>Очки</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let player of players">
+        <td>{{player.id}}</td>
+        <td>{{player.name}}</td>
+        <td>{{player.link}}</td>
+        <td>{{player.createdAt | date: 'HH:mm dd.MM.yy'}}</td>
+        <td>{{player.points}}</td>
+        <td><button class="btn btn-primary block">Удалить</button></td>
+      </tr>
+    </table>
+  </div>
+</section>

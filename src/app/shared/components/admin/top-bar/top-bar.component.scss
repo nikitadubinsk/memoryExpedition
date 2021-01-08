@@ -1,0 +1,50 @@
+@import "../../../../../style/_classes.scss";
+@import "../../../../../style/_colors.scss";
+
+section {
+  .container {
+    padding: 1% 10%;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1%;
+    border-bottom: 1px solid black;
+    .i-group {
+      border: 0px solid $black;
+      display: flex;
+      i {
+        font-size: 2rem;
+        cursor: pointer;
+        color: $red;
+        margin: 0 0.5rem;
+
+        &:hover {
+          color: $bright_red
+        }
+      }
+    }
+  }
+  nav {
+    background: #E9E9E9;
+    border-bottom: 2px solid $black;
+    ul {
+      display: flex;
+
+      li {
+        width: 50%;
+        text-align: center;
+
+        a {
+          text-decoration: none;
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}
+
+app-popup-new-user {
+  z-index: 100;
+}

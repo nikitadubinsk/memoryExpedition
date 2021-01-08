@@ -1,0 +1,8 @@
+<app-top-bar (onShowPopupWithRegistrationUser)="showPopupWithRegistrationUser($event)"></app-top-bar>
+<div [@routeAdmin]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>
+
+<app-popup-new-user *ngIf="isShowPopupWithRegistrationUser" [@popup]=""
+  (onOpenPopup)="showPopupWithRegistrationUser($event)">
+</app-popup-new-user>

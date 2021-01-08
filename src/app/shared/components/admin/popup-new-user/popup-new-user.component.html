@@ -1,0 +1,25 @@
+<div class="blackScreen">
+  <div class="modal">
+    <h2 class="red">Добавление нового администратора</h2>
+    <br>
+    <form [formGroup]="form" (ngSubmit)="registration">
+      <div class="form-error" *ngIf="error$ | async as error">
+        {{error}}
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Адрес электронной почты" name="email" class="form-control block"
+          formControlName="email"
+          [ngClass]="{'is_invalid' : (form.get('email').invalid && form.get('email').touched), 'is_valid' : !form.get('email').invalid && form.get('email').touched}">
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Пароль" name="password" class="form-control block"
+          formControlName="password"
+          [ngClass]="{'is_invalid' : (form.get('password').invalid && form.get('password').touched), 'is_valid' : !form.get('password').invalid && form.get('password').touched}">
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" (click)="registration()" [disabled]="form.invalid">Зарегестрировать</button>
+        <button class="btn btn-alternate" (click)="cansel()">Закрыть</button>
+      </div>
+    </form>
+  </div>
+</div>

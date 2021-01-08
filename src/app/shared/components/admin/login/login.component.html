@@ -1,0 +1,21 @@
+<section>
+  <form [formGroup]="form" (ngSubmit)="authorization">
+    <h2 class="red">Войти как администратор</h2>
+    <br>
+    <div class="form-error" *ngIf="error$ | async as error">
+      {{error}}
+    </div>
+    <div class="form-group">
+      <input type="text" placeholder="Адрес электронной почты" name="email" class="form-control block"
+        formControlName="email"
+        [ngClass]="{'is_invalid' : (form.get('email').invalid && form.get('email').touched), 'is_valid' : !form.get('email').invalid && form.get('email').touched}">
+    </div>
+    <div class="form-group">
+      <input type="password" placeholder="Пароль" name="password" class="form-control block" formControlName="password"
+        [ngClass]="{'is_invalid' : (form.get('password').invalid && form.get('password').touched), 'is_valid' : !form.get('password').invalid && form.get('password').touched}">
+    </div>
+    <button class="btn btn-primary block" (click)="authorization()" [disabled]="form.invalid">Войти как
+      администратор</button>
+    <a class="red" [routerLink]="['/']">← Вернуться на главную</a>
+  </form>
+</section>
