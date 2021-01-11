@@ -1,21 +1,44 @@
 <section class="container">
   <h2>Добавить новый вопрос</h2>
-  <br>
-  <form [formGroup]="form" (ngSubmit)="createQuestion">
+  <br />
+  <form [formGroup]="form" (ngSubmit)="(createQuestion)">
     <div class="form-group">
       <label for="text" class="form-name">Текст вопроса</label>
-      <textarea class="form-control block" placeholder="Текст вопроса" formControlName="text"
-        [ngClass]="{'is_invalid' : (form.get('text').invalid && form.get('text').touched), 'is_valid' : !form.get('text').invalid && form.get('text').touched}"></textarea>
+      <textarea
+        class="form-control block"
+        placeholder="Текст вопроса"
+        formControlName="text"
+        [ngClass]="{
+          is_invalid: form.get('text').invalid && form.get('text').touched,
+          is_valid: !form.get('text').invalid && form.get('text').touched
+        }"
+      ></textarea>
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Стоимость вопроса</label>
-      <input class="form-control block" type="number" placeholder="0" formControlName="cost"
-        [ngClass]="{'is_invalid' : (form.get('cost').invalid && form.get('cost').touched), 'is_valid' : !form.get('cost').invalid && form.get('cost').touched}">
+      <input
+        class="form-control block"
+        type="number"
+        placeholder="0"
+        formControlName="cost"
+        [ngClass]="{
+          is_invalid: form.get('cost').invalid && form.get('cost').touched,
+          is_valid: !form.get('cost').invalid && form.get('cost').touched
+        }"
+      />
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Категория</label>
-      <select formControlName="category" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('category').invalid && form.get('category').touched), 'is_valid' : !form.get('category').invalid && form.get('category').touched}">
+      <select
+        formControlName="category"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('category').invalid && form.get('category').touched,
+          is_valid:
+            !form.get('category').invalid && form.get('category').touched
+        }"
+      >
         <option value="category1">Категория 1</option>
         <option value="category2">Категория 2</option>
         <option value="category3">Категория 3</option>
@@ -25,23 +48,60 @@
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Первый вариант ответа</label>
-      <input type="text" placeholder="Первый вариант" formControlName="answer1" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('answer1').invalid && form.get('answer1').touched), 'is_valid' : !form.get('answer1').invalid && form.get('answer1').touched}">
+      <input
+        type="text"
+        placeholder="Первый вариант"
+        formControlName="answer1"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('answer1').invalid && form.get('answer1').touched,
+          is_valid: !form.get('answer1').invalid && form.get('answer1').touched
+        }"
+      />
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Второй вариант ответа</label>
-      <input type="text" placeholder="Второй вариант" formControlName="answer2" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('answer2').invalid && form.get('answer2').touched), 'is_valid' : !form.get('answer2').invalid && form.get('answer2').touched}">
+      <input
+        type="text"
+        placeholder="Второй вариант"
+        formControlName="answer2"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('answer2').invalid && form.get('answer2').touched,
+          is_valid: !form.get('answer2').invalid && form.get('answer2').touched
+        }"
+      />
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Третий вариант ответа</label>
-      <input type="text" placeholder="Третий вариант" formControlName="answer3" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('answer3').invalid && form.get('answer3').touched), 'is_valid' : !form.get('answer3').invalid && form.get('answer3').touched}">
+      <input
+        type="text"
+        placeholder="Третий вариант"
+        formControlName="answer3"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('answer3').invalid && form.get('answer3').touched,
+          is_valid: !form.get('answer3').invalid && form.get('answer3').touched
+        }"
+      />
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Правильный ответ</label>
-      <select formControlName="correctAnswer" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('correctAnswer').invalid && form.get('correctAnswer').touched), 'is_valid' : !form.get('correctAnswer').invalid && form.get('correctAnswer').touched}">
+      <select
+        formControlName="correctAnswer"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('correctAnswer').invalid &&
+            form.get('correctAnswer').touched,
+          is_valid:
+            !form.get('correctAnswer').invalid &&
+            form.get('correctAnswer').touched
+        }"
+      >
         <option value="1">Первый ответ</option>
         <option value="2">Второй Ответ</option>
         <option value="3">Третий ответ</option>
@@ -49,15 +109,39 @@
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Ссылка на видео (при наличии)</label>
-      <input type="text" placeholder="Ссылка на видео" formControlName="URLVideo" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('URLVideo').invalid && form.get('URLVideo').touched), 'is_valid' : !form.get('URLVideo').invalid && form.get('URLVideo').touched}">
+      <input
+        type="text"
+        placeholder="Ссылка на видео"
+        formControlName="URLVideo"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('URLVideo').invalid && form.get('URLVideo').touched,
+          is_valid:
+            !form.get('URLVideo').invalid && form.get('URLVideo').touched
+        }"
+      />
     </div>
     <div class="form-group">
-      <label for="text" class="form-name">Ссылка на картинку (при наличии)</label>
-      <input type="text" placeholder="Ссылка на картинку" formControlName="URLPicture" class="form-control block"
-        [ngClass]="{'is_invalid' : (form.get('URLPicture').invalid && form.get('URLPicture').touched), 'is_valid' : !form.get('URLPicture').invalid && form.get('URLPicture').touched}">
+      <label for="text" class="form-name">Картинка (при наличии)</label>
+      <input
+        type="file"
+        formControlName="URLPicture"
+        class="form-control block"
+        [ngClass]="{
+          is_invalid:
+            form.get('URLPicture').invalid && form.get('URLPicture').touched,
+          is_valid:
+            !form.get('URLPicture').invalid && form.get('URLPicture').touched
+        }"
+      />
     </div>
-    <button class="btn btn-primary block" (click)="createQuestion()" [disabled]="form.invalid">Создать новый
-      вопрос</button>
+    <button
+      class="btn btn-primary block"
+      (click)="createQuestion()"
+      [disabled]="form.invalid"
+    >
+      Создать новый вопрос
+    </button>
   </form>
 </section>

@@ -1,0 +1,10 @@
+<section class="container">
+  <h2>Статистика игры</h2>
+  <div *ngIf="loading">
+    <h3 class="red">Загрузка...</h3>
+  </div>
+  <div *ngIf="!loading">
+    <app-all-players [statistics]="statistics"></app-all-players>
+    <app-points [statistics]="statistics"></app-points>
+  </div>
+</section>

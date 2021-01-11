@@ -13,7 +13,7 @@ export class PopupNewUserComponent implements OnInit {
   form: FormGroup;
   public error$: Subject<string> = new Subject<string>();
   isShowPopupWithRegistrationUser: false
-  @Output() onOpenPopup: EventEmitter<Boolean> = new EventEmitter<Boolean>()
+  @Output() onOpenPopup: EventEmitter<Object> = new EventEmitter<Object>()
 
   constructor(private adminServices: AdminService) { }
 
@@ -28,14 +28,15 @@ export class PopupNewUserComponent implements OnInit {
     try {
       await this.adminServices.newUser(this.form.value);
       this.form.reset();
-      this.cansel();
+      this.onOpenPopup.emit({flag: false, action: 'new'});
     } catch (e) {
       console.log(e.message);
+      this.onOpenPopup.emit({flag: false, action: 'error'});
     }
   }
 
   cansel() {
-    this.onOpenPopup.emit(false);
+    this.onOpenPopup.emit({flag: false, action: 'cansel'});
   }
 
 }

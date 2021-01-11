@@ -8,11 +8,33 @@
   </div>
   <nav class="container">
     <ul>
-      <li><a [routerLink]="['/admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-          class="black">Список
-          участников</a></li>
-      <li><a [routerLink]="['/admin/newquestion']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-          class="black">Добавить новый вопрос</a></li>
+      <li>
+        <a
+          [routerLink]="['/admin']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          >Список участников</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/admin/statistics']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          >Статистика игры</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/admin/newquestion']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          >Добавить новый вопрос</a
+        >
+      </li>
     </ul>
   </nav>
 </section>

@@ -45,9 +45,8 @@ export class MainGameComponent implements OnInit {
         if (a.cost < b.cost) {return -1}
         return 0;
       })
-      console.log(this.questions);
     } catch (e) {
-      
+      this.router.navigate(['/error']);
     }
     this.loading = false;
   }
@@ -69,13 +68,16 @@ export class MainGameComponent implements OnInit {
   async closeFullQuestion(obj) {
     this.isShowFullQuestion = obj.flag;
     this.points += obj.points;
-    if (this.countOfQuestion == 3) {
+    if (this.countOfQuestion == 30) {
       this.finishGame();
     }
   }
 
   async finishGame() {
     try {
+      if (localStorage['name'] && localStorage['link']) {
+        this.router.navigate(['/error']);
+      }
       await this.questionServices.newPlayer({
         name: localStorage['name'],
         link: localStorage['link'],

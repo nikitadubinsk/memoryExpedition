@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = 3000;
+const PORT = 3001;
 const bodyParser = require('body-parser');
 const cors = require('cors')
 
@@ -14,11 +14,11 @@ app.use(bodyParser.json())
 app.use(cors())
 
 const CONFIG = {
-  DB: "zitrnikgm2_jew",
-  USERNAME: "zitrnikgm2_jew",
-  PASSWORD: "Nd2021Nd",
-  DIALECT: "postgres",
-  HOST: "pg2.sweb.ru"
+  DB: "std_704",
+  USERNAME: "std_704",
+  PASSWORD: "12345678",
+  DIALECT: "mysql",
+  HOST: "std-mysql.ist.mospolytech.ru"
 }
 
 const Sequelize = require("sequelize");
@@ -114,6 +114,8 @@ const Questions = sequelize.define("Questions", {
   }
 })
 
+const Op = Sequelize.Op;
+
 // Дальше идут запросы
 
 app.post("/api/newquestion", async (req, res) => {
@@ -188,7 +190,7 @@ app.post("/api/auth", async (req, res) => {
 
 app.get("/api/users", async (req, res) => {
   try {
-    let result = await Users.findAll({});
+    let result = await Users.findAll();
     res.send(result)
   }
   catch (e) {
@@ -201,7 +203,7 @@ app.get("/api/users", async (req, res) => {
 
 app.get("/api/questions", async (req, res) => {
   try {
-    let result = await Questions.findAll({});
+    let result = await Questions.findAll();
     res.send(result)
   }
   catch (e) {
@@ -214,7 +216,7 @@ app.get("/api/questions", async (req, res) => {
 
 app.get("/api/players", async (req, res) => {
   try {
-    let result = await Players.findAll({});
+    let result = await Players.findAll();
     res.send(result)
   }
   catch (e) {
@@ -242,7 +244,7 @@ app.post("/api/newplayer", async (req, res) => {
   }
 })
 
-app.delete("/api/delete/players/:id", async (req, res) => {
+app.delete("/api/deleteplayer/:id", async (req, res) => {
   try {
     let result = await Players.destroy({
       where: {
@@ -255,6 +257,37 @@ app.delete("/api/delete/players/:id", async (req, res) => {
     console.error(e);
     res.status(500).send({
       message: "Произошла небольшая ошибка во время удаления данных игрока"
+    })
+  }
+})
+
+app.get("/api/statistics", async (req, res) => {
+  try {
+    let countAllPlayers = await Players.count()
+    let countForLastMounth = await Players.count({
+      where: {'createdAt': {[Op.gte]: new Date(new Date() - 31 * 24 * 60 * 60 * 1000)}}
+    })
+    let countForLastWeek = await Players.count({
+      where: {'createdAt': {[Op.gte]: new Date(new Date() - 7 * 24 * 60 * 60 * 1000)}}
+    })
+    let maxPoints = await Players.max('points');
+    let minPoints = await Players.min('points');
+    let sumPoints = await Players.sum('points');
+    let avg = (sumPoints / countAllPlayers);
+    let result = {
+      countAllPlayers: countAllPlayers,
+      countForLastMounth: countForLastMounth,
+      countForLastWeek: countForLastWeek,
+      maxPoints: maxPoints,
+      minPoints: minPoints,
+      avg: avg
+    }
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка во время получения статистики ${e.message}`
     })
   }
 })

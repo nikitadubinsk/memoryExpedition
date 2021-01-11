@@ -31,6 +31,7 @@ section {
     border-bottom: 2px solid $black;
     ul {
       display: flex;
+      align-items: center;
 
       li {
         width: 50%;

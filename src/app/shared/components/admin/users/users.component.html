@@ -3,6 +3,49 @@
     <h3 class="red" *ngIf="loading">Загрузка...</h3>
   </div>
   <div *ngIf="!loading">
+    <h2>Список участников</h2>
+    <br />
+    <input
+      type="text"
+      placeholder="Поиск по имени пользователя"
+      [(ngModel)]="findNameString"
+      class="form-control block find"
+    />
+    <br />
+    <div class="sort">
+      <p
+        *ngIf="isSortPointsTouched"
+        (click)="sortPoints()"
+        [ngClass]="{ bold: isSortPoints, light: !isSortPoints }"
+      >
+        ↑ По количеству баллов
+      </p>
+      <p
+        *ngIf="!isSortPointsTouched"
+        (click)="sortPoints()"
+        [ngClass]="{ bold: isSortPoints, light: !isSortPoints }"
+      >
+        ↓ По количеству баллов
+      </p>
+      <p
+        *ngIf="isSortCreatedAtTouched"
+        (click)="sortCreatedAt()"
+        [ngClass]="{ bold: isSortCreatedAt, light: !isSortCreatedAt }"
+      >
+        ↑ По дате начала игры
+      </p>
+      <p
+        *ngIf="!isSortCreatedAtTouched"
+        (click)="sortCreatedAt()"
+        [ngClass]="{ bold: isSortCreatedAt, light: !isSortCreatedAt }"
+      >
+        ↓ По дате начала игры
+      </p>
+    </div>
+    <br />
+    <button class="btn btn-primary" (click)="exportToExcel()">
+      Экспортировать в Excel
+    </button>
     <table>
       <tr>
         <th>№</th>
@@ -12,14 +55,24 @@
         <th>Очки</th>
         <th></th>
       </tr>
-      <tr *ngFor="let player of players">
-        <td>{{player.id}}</td>
-        <td>{{player.name}}</td>
-        <td>{{player.link}}</td>
-        <td>{{player.createdAt | date: 'HH:mm dd.MM.yy'}}</td>
-        <td>{{player.points}}</td>
-        <td><button class="btn btn-primary block">Удалить</button></td>
+      <tr *ngFor="let p of players | findPlayers: findNameString">
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.link }}</td>
+        <td>{{ p.createdAt | date: "HH:mm dd.MM.yy" }}</td>
+        <td>{{ p.points }}</td>
+        <td>
+          <button
+            class="btn btn-primary block"
+            (click)="deletePlayer(p.id)"
+            [disabled]="loadingResponse"
+          >
+            Удалить
+          </button>
+        </td>
       </tr>
     </table>
   </div>
 </section>
+
+<ng-template appRef></ng-template>

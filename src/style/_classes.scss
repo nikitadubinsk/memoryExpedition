@@ -162,6 +162,14 @@ ul {
   background-size: 1.25rem 1.25rem;
 }
 
+.find {
+  padding-left: calc(1.5em + 1rem);
+  background-image: url(/../assets/svg/find.svg);
+  background-repeat: no-repeat;
+  background-position: left calc(0.375em + 0.1875rem) center;
+  background-size: 1.25rem 1.25rem;
+}
+
 .red {
   color: $red;
 }

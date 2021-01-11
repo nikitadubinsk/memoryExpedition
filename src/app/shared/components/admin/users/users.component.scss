@@ -7,6 +7,13 @@
   }
 }
 
+.sort {
+  display: flex;
+  p {
+    margin-right: 1rem;
+  }
+}
+
 table {
   width: 100%;
   text-align: center;
@@ -19,4 +26,16 @@ table {
   tr:nth-child(2n) {
     background: $gray;
   }
+}
+
+.bold {
+  font-weight: 900;
+  cursor: pointer;
+  user-select: none;
+}
+
+.light {
+  font-weight: normal;
+  cursor: pointer;
+  user-select: none;
 }

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class TopBarComponent implements OnInit {
 
-  @Output() onShowPopupWithRegistrationUser:EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Output() onShowPopupWithRegistrationUser:EventEmitter<Object> = new EventEmitter<Object>();
 
   constructor(private router: Router) { }
 
@@ -20,7 +20,7 @@ export class TopBarComponent implements OnInit {
   }
 
   newUser() {
-    this.onShowPopupWithRegistrationUser.emit(true);
+    this.onShowPopupWithRegistrationUser.emit({flag: true});
   }
 
 }

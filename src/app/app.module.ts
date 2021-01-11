@@ -14,6 +14,8 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { FinishGameComponent } from './shared/components/finish-game/finish-game.component';
 import { GameTableComponent } from './shared/components/game-table/game-table.component';
 import { CategoryPipe } from './shared/pipes/category.pipe';
+import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
+import { SharedModule } from './shared/modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,14 @@ import { CategoryPipe } from './shared/pipes/category.pipe';
     FinishGameComponent,
     GameTableComponent,
     CategoryPipe,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    SharedModule,
     AdminModule
   ],
   providers: [],

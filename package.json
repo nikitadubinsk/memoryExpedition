@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
     "body-parser": "^1.19.0",
+    "chart.js": "^2.9.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
@@ -27,6 +28,7 @@
     "rxjs": "~6.4.0",
     "sequelize": "^6.3.5",
     "tslib": "^1.10.0",
+    "xlsx": "^0.16.9",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

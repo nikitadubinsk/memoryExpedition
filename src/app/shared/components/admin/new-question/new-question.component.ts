@@ -30,12 +30,13 @@ export class NewQuestionComponent implements OnInit {
   }
 
   async createQuestion() {
-    try {
-      await this.questionService.createQuestion(this.form.value);
-      this.form.reset();
-    } catch (e) {
-      this.error$.next(e.error.message)
-    }
+    console.log(this.form.value)
+    // try {
+    //   await this.questionService.createQuestion(this.form.value);
+    //   this.form.reset();
+    // } catch (e) {
+    //   this.error$.next(e.error.message)
+    // }
   }
 
 }

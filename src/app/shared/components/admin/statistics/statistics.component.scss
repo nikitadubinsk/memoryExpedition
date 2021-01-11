@@ -1,0 +1,18 @@
+@import "../../../../../style/_classes.scss";
+@import "../../../../../style/_colors.scss";
+
+section {
+  background: url(../../../../../assets/mainBack.png) no-repeat center top / cover;
+  min-height: 100vh;
+  div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 1vw;
+    margin-top: 2%;
+  }
+  h3 {
+    text-align: center;
+    width: 80vw;
+  }
+}

@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { slideInAnimation } from 'src/app/animations';
+import { RefDirective } from 'src/app/shared/directives/ref.directive';
+import { AlertComponent } from '../../alert/alert.component';
 
 @Component({
   selector: 'app-admin-view',
@@ -17,10 +19,12 @@ import { slideInAnimation } from 'src/app/animations';
       transition(':leave', [
         style({ opacity: 1, transform: 'scale(1.3)' }),
       ])
-    ]),
+    ])
   ]
 })
-export class AdminViewComponent implements OnInit {
+export class AdminViewComponent {
+
+  @ViewChild(RefDirective, {static: false}) refDir: RefDirective
 
   isShowPopupWithRegistrationUser = false;
 
@@ -28,13 +32,19 @@ export class AdminViewComponent implements OnInit {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 
-  constructor() { }
+  constructor(private resolver: ComponentFactoryResolver) {}
 
-  ngOnInit() {
-  }
-
-  showPopupWithRegistrationUser(flag) {
-    this.isShowPopupWithRegistrationUser = flag;
+  showPopupWithRegistrationUser(obj) {
+    this.isShowPopupWithRegistrationUser = obj.flag;
+    if (obj.action === 'new' || obj.action === 'error') {
+      const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
+      this.refDir.containerRef.clear();
+      const component = this.refDir.containerRef.createComponent(alertFactory);
+      obj.action === 'new' ? component.instance.title = "Вы успешно добавили нового администратора" : component.instance.title = "К сожалению, произошла небольшая ошибка"
+      setTimeout(() => {
+        this.refDir.containerRef.clear();
+      }, 3000)
+    }
   }
 
 }

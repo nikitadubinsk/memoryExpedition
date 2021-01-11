@@ -1,25 +1,61 @@
 <section>
   <div class="question_top white">
-    <p>Вопрос за {{question.cost}}</p>
-    <h3>{{question.text}}</h3>
+    <p>Вопрос за {{ question.cost }}</p>
+    <h3>{{ question.text }}</h3>
   </div>
-  <div class="question_graphic" *ngIf="question.URLPicture != '' || question.URLVideo != ''">
-    <img *ngIf="question.URLPicture != ''" src="{{question.URLPicture}}" class="onePicture">
-    <iframe *ngIf="question.URLVideo != ''" class="onevideo" [src]="VideoURL()" frameborder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div
+    class="question_graphic"
+    *ngIf="question.URLPicture || question.URLVideo"
+  >
+    <img
+      *ngIf="question.URLPicture"
+      src="{{ question.URLPicture }}"
+      class="onePicture"
+    />
+    <iframe
+      *ngIf="question.URLVideo"
+      class="onevideo"
+      [src]="VideoURL()"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
   </div>
   <div class="question_answer">
-    <p (click)="chooseAnAnswer(1)"
-      [ngClass]="{chooseAnAnswer: chooseAnAnswerFlag[1], answerTrue: answerTrueFlag[1], answerFalse: answerFalseFlag[1]}">
-      1. {{question.answer1}}</p>
-    <p (click)="chooseAnAnswer(2)"
-      [ngClass]="{chooseAnAnswer: chooseAnAnswerFlag[2], answerTrue: answerTrueFlag[2], answerFalse: answerFalseFlag[2]}">
-      2. {{question.answer2}}</p>
-    <p (click)="chooseAnAnswer(3)"
-      [ngClass]="{chooseAnAnswer: chooseAnAnswerFlag[3], answerTrue: answerTrueFlag[3], answerFalse: answerFalseFlag[3]}">
-      3. {{question.answer3}}</p>
+    <p
+      (click)="chooseAnAnswer(1)"
+      [ngClass]="{
+        chooseAnAnswer: chooseAnAnswerFlag[1],
+        answerTrue: answerTrueFlag[1],
+        answerFalse: answerFalseFlag[1]
+      }"
+    >
+      1. {{ question.answer1 }}
+    </p>
+    <p
+      (click)="chooseAnAnswer(2)"
+      [ngClass]="{
+        chooseAnAnswer: chooseAnAnswerFlag[2],
+        answerTrue: answerTrueFlag[2],
+        answerFalse: answerFalseFlag[2]
+      }"
+    >
+      2. {{ question.answer2 }}
+    </p>
+    <p
+      (click)="chooseAnAnswer(3)"
+      [ngClass]="{
+        chooseAnAnswer: chooseAnAnswerFlag[3],
+        answerTrue: answerTrueFlag[3],
+        answerFalse: answerFalseFlag[3]
+      }"
+    >
+      3. {{ question.answer3 }}
+    </p>
   </div>
   <div class="question_continue">
-    <p (click)="continue()" [@continueButton]="" *ngIf="isShowContinueButton">Продолжить→</p>
+    <p (click)="continue()" [@continueButton]="" *ngIf="isShowContinueButton">
+      Продолжить→
+    </p>
   </div>
 </section>
