@@ -35,3 +35,25 @@ section {
 .container {
   width: 100vw !important;
 }
+
+@media (max-width: 1000px) {
+  section {
+    .game_table {
+      div {
+        width: 100%;
+        p {
+          font-weight: 900;
+          font-size: 1.5rem;
+          text-align: right;
+          cursor: pointer;
+          margin-top: 1rem;
+        }
+      }
+
+      app-game-table,
+      app-one-question {
+        width: 100%;
+      }
+    }
+  }
+}

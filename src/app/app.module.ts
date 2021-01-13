@@ -16,6 +16,8 @@ import { GameTableComponent } from './shared/components/game-table/game-table.co
 import { CategoryPipe } from './shared/pipes/category.pipe';
 import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 import { SharedModule } from './shared/modules/shared/shared.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { SharedModule } from './shared/modules/shared/shared.module';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    AdminModule
+    AdminModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

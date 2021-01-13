@@ -1,25 +1,2 @@
 @import "../../../../../style/_classes.scss";
 @import "../../../../../style/_colors.scss";
-
-.blackScreen {
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 5;
-}
-
-.modal {
-  width: 50vw;
-  padding: 2%;
-  z-index: 10;
-  background: white;
-  position: relative;
-  border-radius: 10px;
-  margin-left: 25vw;
-  text-align: center;
-  margin-top: 50vh;
-  transform: translate(0, -50%);
-}

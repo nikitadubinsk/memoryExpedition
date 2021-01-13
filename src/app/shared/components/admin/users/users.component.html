@@ -7,7 +7,7 @@
     <br />
     <input
       type="text"
-      placeholder="Поиск по имени пользователя"
+      placeholder="Поиск по имени участников"
       [(ngModel)]="findNameString"
       class="form-control block find"
     />
@@ -50,17 +50,19 @@
       <tr>
         <th>№</th>
         <th>Имя</th>
-        <th>Ссылка на ВК или email</th>
+        <th>Ссылка на VK или email</th>
         <th>Дата прохождения</th>
         <th>Очки</th>
         <th></th>
       </tr>
       <tr *ngFor="let p of players | findPlayers: findNameString">
-        <td>{{ p.id }}</td>
-        <td>{{ p.name }}</td>
-        <td>{{ p.link }}</td>
-        <td>{{ p.createdAt | date: "HH:mm dd.MM.yy" }}</td>
-        <td>{{ p.points }}</td>
+        <td data-label="№">{{ p.id }}</td>
+        <td data-label="Имя">{{ p.name }}</td>
+        <td data-label="Ссылка">{{ p.link }}</td>
+        <td data-label="Дата прохождения">
+          {{ p.createdAt | date: "HH:mm dd.MM.yy" }}
+        </td>
+        <td data-label="Очки">{{ p.points }}</td>
         <td>
           <button
             class="btn btn-primary block"

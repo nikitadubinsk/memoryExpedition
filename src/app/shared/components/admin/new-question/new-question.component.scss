@@ -11,3 +11,14 @@ section {
     }
   }
 }
+
+@media (max-width: 1000px) {
+  section {
+    form {
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+    }
+  }
+}

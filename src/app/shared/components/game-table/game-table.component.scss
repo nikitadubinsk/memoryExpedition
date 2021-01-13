@@ -45,3 +45,27 @@ section {
     }
   }
 }
+
+@media (max-width: 1000px) {
+  section {
+    width: 100%;
+
+    .fullTable {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+      .category_name {
+        padding: 2%;
+        font-size: 1.5rem;
+        text-align: center;
+        justify-content: center;
+      }
+      .allCost {
+        overflow: hidden;
+        p {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

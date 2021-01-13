@@ -1,6 +1,9 @@
 <section class="container">
   <h2>Добавить новый вопрос</h2>
   <br />
+  <div class="form-error" *ngIf="error$ | async as error">
+    {{ error }}
+  </div>
   <form [formGroup]="form" (ngSubmit)="(createQuestion)">
     <div class="form-group">
       <label for="text" class="form-name">Текст вопроса</label>
@@ -8,6 +11,7 @@
         class="form-control block"
         placeholder="Текст вопроса"
         formControlName="text"
+        name="photo"
         [ngClass]="{
           is_invalid: form.get('text').invalid && form.get('text').touched,
           is_valid: !form.get('text').invalid && form.get('text').touched
@@ -115,24 +119,23 @@
         formControlName="URLVideo"
         class="form-control block"
         [ngClass]="{
-          is_invalid:
-            form.get('URLVideo').invalid && form.get('URLVideo').touched,
           is_valid:
-            !form.get('URLVideo').invalid && form.get('URLVideo').touched
+            !form.get('correctAnswer').invalid &&
+            form.get('correctAnswer').touched
         }"
       />
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Картинка (при наличии)</label>
       <input
-        type="file"
+        type="text"
+        placeholder="Ссылка на картинку"
         formControlName="URLPicture"
         class="form-control block"
         [ngClass]="{
-          is_invalid:
-            form.get('URLPicture').invalid && form.get('URLPicture').touched,
           is_valid:
-            !form.get('URLPicture').invalid && form.get('URLPicture').touched
+            !form.get('correctAnswer').invalid &&
+            form.get('correctAnswer').touched
         }"
       />
     </div>

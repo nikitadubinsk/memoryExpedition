@@ -35,9 +35,9 @@ import { PointsComponent } from '../../components/admin/chart/points/points.comp
     CommonModule,
     SharedModule,
     RouterModule.forChild([
+      {path: "login", component: LoginComponent},
       {
         path: "", component: AdminViewComponent, children: [
-          {path: "login", component: LoginComponent},
           { path: "", component: UsersComponent, data: {animation: 'UsersPage'} },
           { path: "newquestion", component: NewQuestionComponent, data: { animation: 'NewQuestionPage' } },
           { path: "statistics", component: StatisticsComponent, data: {animation: 'StatisticsPage'} }

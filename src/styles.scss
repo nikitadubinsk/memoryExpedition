@@ -1,8 +1,18 @@
 @import "fonts/stylesheet.css";
+@import "style/_classes.scss";
+@import "style/_colors.scss";
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: Gilroy;
+}
+
+.noJS {
+  display: flex;
+  align-items: center;
+  background: url(assets/mainBack.png) no-repeat center top / cover;
+  min-height: 100vh;
+  text-align: center;
 }

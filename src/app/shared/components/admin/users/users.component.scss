@@ -39,3 +39,41 @@ table {
   cursor: pointer;
   user-select: none;
 }
+
+@media (max-width: 1000px) {
+  .sort {
+    flex-direction: column;
+
+    p {
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+    }
+  }
+  button {
+    width: 100%;
+  }
+  h2 {
+    text-align: center;
+  }
+  table {
+    margin-top: 1rem;
+    th {
+      display: none;
+    }
+    tr {
+      display: block;
+      td {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1rem;
+        padding: 5px;
+
+        &::before {
+          content: attr(data-label);
+          font-weight: bold;
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}

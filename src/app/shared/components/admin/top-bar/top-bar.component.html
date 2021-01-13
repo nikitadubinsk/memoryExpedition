@@ -4,6 +4,8 @@
     <div class="i-group">
       <i class="fas fa-sign-out-alt" (click)="logout()"></i>
       <i class="fas fa-user" (click)="newUser()"></i>
+      <i class="fas fa-bars" (click)="openMenu()" *ngIf="!isShowMenu"></i>
+      <i class="fas fa-times" (click)="closeMenu()" *ngIf="isShowMenu"></i>
     </div>
   </div>
   <nav class="container">
@@ -32,6 +34,40 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="black"
+          >Добавить новый вопрос</a
+        >
+      </li>
+    </ul>
+  </nav>
+  <nav class="mobile" *ngIf="isShowMenu" [@menu]="">
+    <ul>
+      <li>
+        <a
+          [routerLink]="['/admin']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          (click)="closeMenu()"
+          >Список участников</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/admin/statistics']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          (click)="closeMenu()"
+          >Статистика игры</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/admin/newquestion']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          (click)="closeMenu()"
           >Добавить новый вопрос</a
         >
       </li>

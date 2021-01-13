@@ -49,3 +49,59 @@ section {
 app-popup-new-user {
   z-index: 100;
 }
+
+.mobile {
+  display: none;
+}
+
+.fa-bars, .fa-times {
+  display: none
+}
+
+@media (max-width: 1000px) {
+  .fa-bars,
+  .fa-times {
+    display: block
+  }
+  section {
+    .container {
+      padding: 1%;
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1%;
+      border-bottom: 1px solid black;
+
+      .i-group {
+        i {
+          font-size: 1.5rem;
+          user-select: none;
+        }
+      }
+    }
+
+    nav {
+      display: none;
+    }
+    .mobile {
+      overflow: hidden;
+      display: block;
+      z-index: 100;
+      background: $white;
+      box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+      ul {
+        flex-direction: column;
+        li {
+          width: 100%;
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+}

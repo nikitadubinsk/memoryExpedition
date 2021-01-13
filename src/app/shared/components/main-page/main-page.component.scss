@@ -60,3 +60,32 @@ footer {
     }
   }
 }
+
+
+
+@media (max-width: 1000px) {
+  #biblioNight {
+    min-height: 20vh;
+    h1 {
+      width: 60%;
+      font-size: 2rem;
+    }
+  }
+  #war {
+    flex-direction: column;
+    div {
+      width: 100%;
+    }
+    img {
+      width: 50%;
+    }
+  }
+  #form {
+    form {
+      width: 100%;
+    }
+  }
+  footer {
+    flex-direction: column;
+  }
+}

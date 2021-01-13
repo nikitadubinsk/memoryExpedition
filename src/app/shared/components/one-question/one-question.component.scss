@@ -80,3 +80,42 @@
   border: 0.375rem solid #721c24 !important;
   background: #f8d7da !important;
 }
+
+@media (max-width: 1000px) {
+  .question {
+    &_top {
+      background: $red;
+      padding: 2%;
+    }
+    &_graphic {
+      padding: 2%;
+      .onevideo {
+        height: 20vh;
+      }
+      .onePicture {
+        max-height: 20vh;
+      }
+    }
+    &_answer {
+      margin-top: 0.5rem;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+
+      p {
+        font-size: 1.25rem;
+
+        &:first-child {
+          border-bottom-left-radius: 0rem;
+        }
+
+        &:last-child {
+          border-bottom-right-radius: 1rem;
+          border-bottom-left-radius: 1rem;
+        }
+      }
+    }
+    &_continue {
+      margin-top: 0.5rem;
+    }
+  }
+}

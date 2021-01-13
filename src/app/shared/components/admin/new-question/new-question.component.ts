@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { QuestionService } from 'src/app/shared/services/question.service';
 
+
 @Component({
   selector: 'app-new-question',
   templateUrl: './new-question.component.html',
@@ -30,13 +31,12 @@ export class NewQuestionComponent implements OnInit {
   }
 
   async createQuestion() {
-    console.log(this.form.value)
-    // try {
-    //   await this.questionService.createQuestion(this.form.value);
-    //   this.form.reset();
-    // } catch (e) {
-    //   this.error$.next(e.error.message)
-    // }
+    try {
+      await this.questionService.createQuestion(this.form.value);
+      this.form.reset();
+    } catch(e) {
+      this.error$.next(e.error.message)
+    }
   }
 
 }
