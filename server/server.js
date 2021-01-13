@@ -304,8 +304,8 @@ sequelize
   })
   .catch(err=> console.log(err));
 
+app.use(history());
+
 app.listen(PORT, () => {
   console.log(`Сервер запущен по адресу http://localhost:${PORT}`)
 })
-
-app.use(history());
