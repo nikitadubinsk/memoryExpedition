@@ -3,26 +3,10 @@ const PORT = 3001;
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const multer = require("multer");
+const history = require("connect-history-api-fallback");
 
 const app = express();
 
-let DIR = "./server/uploads";
-
-let storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, DIR);
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-let upload = multer({
-  storage: storage,
-});
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -32,7 +16,6 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-app.use(express.static(__dirname + "/public"));
 
 const CONFIG = {
   DB: "std_704",
@@ -324,3 +307,5 @@ sequelize
 app.listen(PORT, () => {
   console.log(`Сервер запущен по адресу http://localhost:${PORT}`)
 })
+
+app.use(history());
