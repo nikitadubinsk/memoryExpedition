@@ -5,6 +5,7 @@ const cors = require('cors')
 const multer = require("multer");
 const history = require("connect-history-api-fallback");
 const path = require("path");
+const serveStatic = require("serve-static");
 
 const app = express();
 
@@ -13,8 +14,8 @@ app.use(bodyParser.json());
 
 // Парсинг запросов по типу: application/x-www-form-urlencoded
 app.use(
-  express.urlencoded({
-    extended: false,
+  bodyParser.urlencoded({
+    extended: true,
   })
 );
 
@@ -30,6 +31,9 @@ app.use(function(req, res, next) {
   );
   next();
 });
+
+// Обработка статических файлов
+app.use("/", serveStatic(path.join(__dirname, "../dist/memoryExpedition")));
 
 // Работа со статическими файлами
 app.use(express.static(path.join(__dirname, "../dist")));
