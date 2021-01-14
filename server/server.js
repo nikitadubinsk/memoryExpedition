@@ -302,16 +302,16 @@ app.get("/api/statistics", async (req, res) => {
   }
 })
 
+app.use(history());
+
 sequelize
   //.sync({ force: true })
   .sync()
-  .then(result=>{
+  .then(async () => {
+    app.listen(PORT, () => {
+      console.log(`Сервер запущен по адресу http://localhost:${PORT}`)
+    })
     console.log("Вы успешно подключились к базе данных");
   })
   .catch(err=> console.log(err));
 
-app.use(history());
-
-app.listen(PORT, () => {
-  console.log(`Сервер запущен по адресу http://localhost:${PORT}`)
-})
