@@ -195,19 +195,19 @@ ul {
 }
 
 .modal {
-  width: 95vw;
+  width: 50vw;
   padding: 2%;
   z-index: 2;
   background: white;
   position: relative;
   border-radius: 10px;
-  margin-left: 2.5vw;
+  margin-left: 25vw;
   text-align: center;
   margin-top: 50vh;
   transform: translate(0, -50%);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   .container {
     padding: 2% 1%;
     height: 100%;
@@ -230,5 +230,9 @@ ul {
     button {
       margin-bottom: 1%;
     }
+  }
+  .modal {
+    width: 95vw;
+    margin-left: 2.5vw;
   }
 }

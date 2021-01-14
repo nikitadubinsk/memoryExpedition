@@ -63,7 +63,7 @@ footer {
 
 
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   #biblioNight {
     min-height: 20vh;
     h1 {
@@ -75,6 +75,9 @@ footer {
     flex-direction: column;
     div {
       width: 100%;
+      p {
+        font-size: 0.8rem;
+      }
     }
     img {
       width: 50%;
@@ -83,6 +86,14 @@ footer {
   #form {
     form {
       width: 100%;
+      .personalData {
+        display: flex;
+        input {
+          margin-right: 0.5rem;
+          transform:scale(2);
+          margin-left: 2%;
+        }
+      }
     }
   }
   footer {
