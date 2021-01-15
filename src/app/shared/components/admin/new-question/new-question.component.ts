@@ -54,9 +54,7 @@ export class NewQuestionComponent implements OnInit {
   }
 
   async createQuestion() {
-    console.log(this.filename);
     this.form.value['picture'] = this.filename
-    console.log(this.form.value);
     try {
       await this.questionService.createQuestion(this.form.value);
       this.form.reset();
