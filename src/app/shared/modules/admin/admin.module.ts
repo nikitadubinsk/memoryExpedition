@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { StatisticsComponent } from '../../components/admin/statistics/statistics.component';
 import { AllPlayersComponent } from '../../components/admin/chart/all-players/all-players.component';
 import { PointsComponent } from '../../components/admin/chart/points/points.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { PointsComponent } from '../../components/admin/chart/points/points.comp
   imports: [
     CommonModule,
     SharedModule,
+    AngularFileUploaderModule,
     RouterModule.forChild([
       {path: "login", component: LoginComponent},
       {

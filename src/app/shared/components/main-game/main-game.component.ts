@@ -84,7 +84,6 @@ export class MainGameComponent implements OnInit {
         points: this.points
       });
     } catch(e) {
-      console.log(e.message)
     }
     localStorage.clear();
     localStorage['points'] = this.points;

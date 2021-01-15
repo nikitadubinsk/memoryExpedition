@@ -27,7 +27,7 @@ export interface Question {
   correctAnswer: string,
   cost: number,
   category: string,
-  URLPicture?: string,
+  picture?: string,
   URLVideo?: string,
   createdAt?: string,
   updatedAt?: string,

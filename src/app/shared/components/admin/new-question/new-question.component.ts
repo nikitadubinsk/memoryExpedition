@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { QuestionService } from 'src/app/shared/services/question.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -10,6 +11,24 @@ import { QuestionService } from 'src/app/shared/services/question.service';
   styleUrls: ['./new-question.component.scss']
 })
 export class NewQuestionComponent implements OnInit {
+
+  filename = "";
+
+  afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png",
+    uploadAPI: {
+      url: environment.urlApi + "/upload-photo",
+    },
+    replaceTexts: {
+      selectFileBtn: 'Выберите файл',
+      resetBtn: 'Удалить',
+      uploadBtn: 'Загрузить',
+      attachPinBtn: 'Прикрепите файл',
+      afterUploadMsg_success: 'Успешно загружено!',
+      afterUploadMsg_error: 'Загрузка прервана!'
+    }
+  }
 
   form: FormGroup;
   public error$: Subject<string> = new Subject<string>();
@@ -26,11 +45,18 @@ export class NewQuestionComponent implements OnInit {
       answer3: new FormControl('', [Validators.required]),
       correctAnswer: new FormControl('', [Validators.required]),
       URLVideo: new FormControl('', []),
-      URLPicture: new FormControl('', []),
     });
   }
 
+  // Функция, возвращение имени загруженного файла
+  fileUpload(event){
+    this.filename = event.body.filename;
+  }
+
   async createQuestion() {
+    console.log(this.filename);
+    this.form.value['picture'] = this.filename
+    console.log(this.form.value);
     try {
       await this.questionService.createQuestion(this.form.value);
       this.form.reset();

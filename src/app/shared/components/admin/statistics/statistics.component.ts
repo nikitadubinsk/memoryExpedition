@@ -17,7 +17,6 @@ export class StatisticsComponent implements OnInit {
     this.loading = true;
     try {
       this.statistics = await this.adminServices.statistics();
-      console.log(this.statistics);
     } catch(e) {
 
     }

@@ -61,7 +61,6 @@ export class UsersComponent implements OnInit {
       let el = this.players.splice(index, 1);
       component.instance.title = "Вы успешно удалили данные о пользователе"
     } catch (e) {
-      console.log(e.message)
       component.instance.title = "К сожалению, произошла небольшая ошибка"
     }
     this.loadingResponse = false;

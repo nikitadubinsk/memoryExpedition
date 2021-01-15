@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   async authorization() {
     try {
       let ans = await this.adminServices.authorization(this.form.value);
-      console.log(ans);
       this.form.reset();
       this.router.navigate(['/admin'])
     } catch (e) {

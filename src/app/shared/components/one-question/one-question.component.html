@@ -3,13 +3,10 @@
     <p>Вопрос за {{ question.cost }}</p>
     <h3>{{ question.text }}</h3>
   </div>
-  <div
-    class="question_graphic"
-    *ngIf="question.URLPicture || question.URLVideo"
-  >
+  <div class="question_graphic" *ngIf="question.picture || question.URLVideo">
     <img
-      *ngIf="question.URLPicture"
-      src="{{ question.URLPicture }}"
+      *ngIf="question.picture"
+      src="{{ question.picture }}"
       class="onePicture"
     />
     <iframe

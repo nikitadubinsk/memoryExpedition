@@ -55,8 +55,10 @@
         <th>Очки</th>
         <th></th>
       </tr>
-      <tr *ngFor="let p of players | findPlayers: findNameString">
-        <td data-label="№">{{ p.id }}</td>
+      <tr
+        *ngFor="let p of players | findPlayers: findNameString; let i = index"
+      >
+        <td data-label="№">{{ i + 1 }}</td>
         <td data-label="Имя">{{ p.name }}</td>
         <td data-label="Ссылка">{{ p.link }}</td>
         <td data-label="Дата прохождения">

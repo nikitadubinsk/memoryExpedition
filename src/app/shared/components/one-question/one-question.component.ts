@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Question } from 'src/app/app.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-one-question',
@@ -30,6 +31,9 @@ export class OneQuestionComponent implements OnInit {
   constructor(public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    if (this.question.picture) {
+      this.question.picture = environment.urlPicture + this.question.picture;
+    }
     for (let i=1; i<=4; i++) {
       this.chooseAnAnswerFlag[i] = false;
       this.answerTrueFlag[i] = false;
@@ -39,10 +43,6 @@ export class OneQuestionComponent implements OnInit {
 
   VideoURL() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.question.URLVideo);
-  }
-
-  PictureUrl() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.question.URLPicture);
   }
 
   chooseAnAnswer(ans) {

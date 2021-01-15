@@ -30,7 +30,6 @@ export class PopupNewUserComponent implements OnInit {
       this.form.reset();
       this.onOpenPopup.emit({flag: false, action: 'new'});
     } catch (e) {
-      console.log(e.message);
       this.onOpenPopup.emit({flag: false, action: 'error'});
     }
   }

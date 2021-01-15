@@ -1,25 +1,29 @@
 const express = require('express');
 const PORT = 3001;
 const bodyParser = require('body-parser');
-const cors = require('cors')
 const multer = require("multer");
 const history = require("connect-history-api-fallback");
-const path = require("path");
 const serveStatic = require("serve-static");
+const fileUpload = require("express-fileupload");
+const path = require("path");
+const uniqueFilename = require("unique-filename");
 
 const app = express();
 
 // Парсинг json - application/json
-app.use(bodyParser.json());
-
-// Парсинг запросов по типу: application/x-www-form-urlencoded
 app.use(
-  bodyParser.urlencoded({
-    extended: true,
+  fileUpload({
+    createParentPath: true,
   })
 );
 
-app.use(function(req, res, next) {
+// Парсинг json
+app.use(bodyParser.json());
+
+app.use(history());
+
+// Настройка CORS
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -133,8 +137,8 @@ const Questions = sequelize.define("Questions", {
     type: Sequelize.STRING,
     allowNull: true
   },
-  URLPicture: {
-    type: Sequelize.Sequelize.TEXT,
+  picture: {
+    type: Sequelize.STRING,
     allowNull: true
   },
   URLVideo: {
@@ -151,26 +155,65 @@ const Op = Sequelize.Op;
 
 // Дальше идут запросы
 
-app.post("/api/newquestion", async (req, res) => {
+// Получение файла и загрузка его в папку uploads
+app.post("/api/upload-photo/", async (req, res) => {
   try {
-    let result = await Questions.create({
-      text: req.body.text,
-      cost: req.body.cost,
-      answer1: req.body.answer1,
-      answer2: req.body.answer2,
-      answer3: req.body.answer3,
-      correctAnswer: req.body.correctAnswer,
-      category: req.body.category,
-      URLPicture: req.body.URLPicture,
-      URLVideo: req.body.URLVideo,
-      isOpen: false
-    });
-    res.send(result)
-  }
-  catch (e) {
-    console.error(e);
+    if (!req.files) {
+      res.send({
+        status: false,
+        message: "No file uploaded",
+      });
+    } else {
+      let photo = req.files.file0;
+      let name = uniqueFilename("") + "." + photo.name.split(".")[1];
+      photo.mv("./server/uploads/" + name);
+      res.send({
+        status: true,
+        message: "File is uploaded",
+        filename: name,
+      });
+    }
+  } catch (err) {
     res.status(500).send({
-      message: `Произошла небольшая ошибка во время создания нового вопроса (${e.message})`
+      message: `Произошла небольшая ошибка во время загрузки картинки (${e.message})`
+    })
+  }
+});
+
+//Получение полного пути файла
+app.get("/api/photo/:filename", (req, res) => {
+  res.sendFile(path.join(__dirname, "uploads", req.params.filename));
+});
+
+app.post("/api/newquestion", async (req, res) => {
+  let count = await Questions.count({
+    where: { category: req.body.category }
+  });
+  console.log(count);
+  if (count < 6) {
+    try {
+      let result = await Questions.create({
+        text: req.body.text,
+        cost: req.body.cost,
+        answer1: req.body.answer1,
+        answer2: req.body.answer2,
+        answer3: req.body.answer3,
+        correctAnswer: req.body.correctAnswer,
+        category: req.body.category,
+        picture: req.body.picture,
+        URLVideo: req.body.URLVideo,
+        isOpen: false
+      });
+      res.send(result)
+    } catch (e) {
+      console.error(e);
+      res.status(500).send({
+        message: `Произошла небольшая ошибка во время создания нового вопроса (${e.message})`
+      })
+    }
+  } else {
+    res.status(500).send({
+      message: `Количество вопросов в данной категории не должно быть больше 6 (сейчас уже ${count})`
     })
   }
 })
