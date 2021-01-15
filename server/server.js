@@ -17,6 +17,12 @@ app.use(
   })
 );
 
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
 // Парсинг json
 app.use(bodyParser.json());
 
