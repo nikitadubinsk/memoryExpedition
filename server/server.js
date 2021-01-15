@@ -20,8 +20,6 @@ app.use(
 // Парсинг json
 app.use(bodyParser.json());
 
-app.use(history());
-
 // Настройка CORS
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
