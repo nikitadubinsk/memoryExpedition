@@ -5,6 +5,7 @@ import { RefDirective } from 'src/app/shared/directives/ref.directive';
 import { QuestionService } from 'src/app/shared/services/question.service';
 import { environment } from 'src/environments/environment';
 import { AlertComponent } from '../../alert/alert.component';
+ import { AngularFileUploaderComponent } from "angular-file-uploader";
 
 
 @Component({
@@ -14,7 +15,10 @@ import { AlertComponent } from '../../alert/alert.component';
 })
 export class NewQuestionComponent implements OnInit {
 
-  @ViewChild(RefDirective, {static: false}) refDir: RefDirective
+  @ViewChild(RefDirective, { static: false }) refDir: RefDirective
+  @ViewChild('fileUpload1', { static: false })
+
+  private fileUpload1: AngularFileUploaderComponent;
 
   filename = "";
 
@@ -31,7 +35,8 @@ export class NewQuestionComponent implements OnInit {
       attachPinBtn: 'Прикрепите файл',
       afterUploadMsg_success: 'Успешно загружено!',
       afterUploadMsg_error: 'Загрузка прервана!'
-    }
+    },
+    theme: "dragNDrop",
   }
 
   form: FormGroup;
@@ -59,16 +64,18 @@ export class NewQuestionComponent implements OnInit {
 
   async createQuestion() {
     this.form.value['picture'] = this.filename
-    const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
-    this.refDir.containerRef.clear();
-    const component = this.refDir.containerRef.createComponent(alertFactory);
     try {
       await this.questionService.createQuestion(this.form.value);
       this.form.reset();
+      const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
+      this.refDir.containerRef.clear();
+      const component = this.refDir.containerRef.createComponent(alertFactory);
       component.instance.title = "Вы успешно добавили новый вопрос"
       setTimeout(() => {
         this.refDir.containerRef.clear();
       }, 5000)
+      this.fileUpload1.resetFileUpload();
+      this.filename = undefined;
     } catch (e) {
       this.error$.next(e.error.message)
     }
