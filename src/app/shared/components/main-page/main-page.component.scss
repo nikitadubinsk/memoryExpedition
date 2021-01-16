@@ -38,8 +38,11 @@
     width: 65%;
     .personalData {
       display: flex;
+      align-items: flex-start;
       input {
         margin-right: 0.5rem;
+        width: 4vw;
+        height: 4vw;
       }
     }
   }
@@ -87,11 +90,9 @@ footer {
     form {
       width: 100%;
       .personalData {
-        display: flex;
         input {
           margin-right: 0.5rem;
-          transform:scale(10);
-          margin-left: 2%;
+          width: 30vw;
         }
       }
     }

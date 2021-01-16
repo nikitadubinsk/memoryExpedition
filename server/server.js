@@ -52,6 +52,15 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
 });
+app.get("/game", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+});
+app.get("/finish", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+});
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+});
 
 
 const CONFIG = {
