@@ -1,6 +1,10 @@
 @import "../../../../../style/_classes.scss";
 @import "../../../../../style/_colors.scss";
 
+section {
+  min-height: 100vh;
+}
+
 .loading {
   h3 {
     text-align: center;

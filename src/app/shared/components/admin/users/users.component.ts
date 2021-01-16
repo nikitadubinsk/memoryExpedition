@@ -118,6 +118,7 @@ export class UsersComponent implements OnInit {
   }
 
   exportToExcel() {
+    this.players.forEach(el => el.createdAt = new Date(el.createdAt));
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.players);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, worksheet, 'Список участников');

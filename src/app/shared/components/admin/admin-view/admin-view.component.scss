@@ -5,3 +5,14 @@ app-top-bar {
 div {
   z-index: 1;
 }
+
+footer {
+  border-top: 1px solid black;
+  padding: 1% 10%;
+}
+
+@media (max-width: 800px) {
+  footer {
+    padding: 1%;
+  }
+}

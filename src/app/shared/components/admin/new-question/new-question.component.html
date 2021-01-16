@@ -143,5 +143,10 @@
     >
       Создать новый вопрос
     </button>
+    <p class="form-text red" *ngIf="form.invalid">
+      Пожалуйста, заполните все поля!
+    </p>
   </form>
 </section>
+
+<ng-template appRef></ng-template>
