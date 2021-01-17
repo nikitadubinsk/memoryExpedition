@@ -58,6 +58,9 @@ app.get("/game", (req, res) => {
 app.get("/finish", (req, res) => {
   res.redirect("/")
 });
+app.get("/admin/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+});
 app.get("/admin", (req, res) => {
   res.redirect("/admin/login")
 });
