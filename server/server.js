@@ -53,13 +53,19 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
 });
 app.get("/game", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+  res.redirect("/")
 });
 app.get("/finish", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+  res.redirect("/")
 });
 app.get("/admin", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/memoryExpedition/index.html"));
+  res.redirect("/admin/login")
+});
+app.get("/admin/statistics", (req, res) => {
+  res.redirect("/admin/login")
+});
+app.get("/admin/newquestion", (req, res) => {
+  res.redirect("/admin/login")
 });
 
 
