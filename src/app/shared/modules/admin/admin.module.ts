@@ -15,6 +15,7 @@ import { StatisticsComponent } from '../../components/admin/statistics/statistic
 import { AllPlayersComponent } from '../../components/admin/chart/all-players/all-players.component';
 import { PointsComponent } from '../../components/admin/chart/points/points.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { QuestionsComponent } from '../../components/admin/questions/questions.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
     RefDirective,
     StatisticsComponent,
     AllPlayersComponent,
-    PointsComponent
+    PointsComponent,
+    QuestionsComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
         path: "", component: AdminViewComponent, children: [
           { path: "", component: UsersComponent, data: {animation: 'UsersPage'} },
           { path: "newquestion", component: NewQuestionComponent, data: { animation: 'NewQuestionPage' } },
-          { path: "statistics", component: StatisticsComponent, data: {animation: 'StatisticsPage'} }
+          { path: "statistics", component: StatisticsComponent, data: { animation: 'StatisticsPage' } },
+          { path: "questions", component: QuestionsComponent, data: {animation: 'QuestionsPage'} }
         ]
       }
     ])

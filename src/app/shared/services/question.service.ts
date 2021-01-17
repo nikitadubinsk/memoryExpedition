@@ -18,6 +18,10 @@ export class QuestionService {
     return this.http.post<Question[]>(`${environment.urlApi}/newquestion`, question).toPromise()
   }
 
+  deleteQuestion(id) {
+    return this.http.delete(`${environment.urlApi}/deletequestion/${id}`).toPromise()
+  }
+
   newPlayer(player: Player) {
     return this.http.post<Player>(`${environment.urlApi}/newplayer`, player).toPromise()
   }

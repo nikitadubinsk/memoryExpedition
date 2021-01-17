@@ -70,6 +70,9 @@ app.get("/admin/statistics", (req, res) => {
 app.get("/admin/newquestion", (req, res) => {
   res.redirect("/admin/login")
 });
+app.get("/admin/questions", (req, res) => {
+  res.redirect("/admin/login")
+});
 
 
 const CONFIG = {
@@ -355,6 +358,23 @@ app.delete("/api/deleteplayer/:id", async (req, res) => {
     console.error(e);
     res.status(500).send({
       message: "Произошла небольшая ошибка во время удаления данных игрока"
+    })
+  }
+})
+
+app.delete("/api/deletequestion/:id", async (req, res) => {
+  try {
+    let result = await Questions.destroy({
+      where: {
+        id: req.params.id,
+      }
+    });
+    res.send(result.status)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: "Произошла небольшая ошибка во время удаления вопроса"
     })
   }
 })

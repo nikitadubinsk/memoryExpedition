@@ -1,0 +1,26 @@
+@import "../../../../../style/_classes.scss";
+@import "../../../../../style/_colors.scss";
+
+section {
+  min-height: 100vh;
+  h3 {
+    position: sticky;
+    top: 0;
+    background: $white;
+  }
+  .one-question {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.correctAnswer {
+  color: $green;
+  font-weight: 900;
+}

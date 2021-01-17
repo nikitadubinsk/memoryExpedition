@@ -13,7 +13,6 @@ import { OneQuestionComponent } from './shared/components/one-question/one-quest
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { FinishGameComponent } from './shared/components/finish-game/finish-game.component';
 import { GameTableComponent } from './shared/components/game-table/game-table.component';
-import { CategoryPipe } from './shared/pipes/category.pipe';
 import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 import { SharedModule } from './shared/modules/shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -28,8 +27,7 @@ import { environment } from '../environments/environment';
     NotFoundComponent,
     FinishGameComponent,
     GameTableComponent,
-    CategoryPipe,
-    ErrorPageComponent
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -37,6 +37,15 @@
           >Добавить новый вопрос</a
         >
       </li>
+      <li>
+        <a
+          [routerLink]="['/admin/questions']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          >Вопросы</a
+        >
+      </li>
     </ul>
   </nav>
   <nav class="mobile" *ngIf="isShowMenu" [@menu]="">
@@ -69,6 +78,16 @@
           class="black"
           (click)="closeMenu()"
           >Добавить новый вопрос</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/admin/questions']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="black"
+          (click)="closeMenu()"
+          >Вопросы</a
         >
       </li>
     </ul>

@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryPipe } from '../../pipes/category.pipe';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CategoryPipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -16,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    CategoryPipe
   ]
 })
 export class SharedModule { }
