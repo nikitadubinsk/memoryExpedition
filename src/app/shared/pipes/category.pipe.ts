@@ -12,7 +12,7 @@ export class CategoryPipe implements PipeTransform {
     }
 
     return questions.filter(question => {
-      return question.category === category
+      return question.category.includes(category);
     })
   }
 
