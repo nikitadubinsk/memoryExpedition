@@ -17,10 +17,16 @@
     <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
       {{ question.answer3 }}
     </p>
-    <p *ngIf="!question.picture">Фотографий нет</p>
-    <p *ngIf="!question.URLVideo">Видео нет</p>
-    <p *ngIf="question.picture">Фотографии есть</p>
-    <p *ngIf="question.URLVideo">Видео есть</p>
+    <i
+      class="fab fa-youtube"
+      *ngIf="question.URLVideo"
+      data-title="Данный вопрос содержит видео"
+    ></i>
+    <i
+      *ngIf="question.picture"
+      class="fas fa-images"
+      data-title="Данный вопрос содержит изображение"
+    ></i>
     <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
       Удалить вопрос
     </button>
@@ -42,10 +48,16 @@
     <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
       {{ question.answer3 }}
     </p>
-    <p *ngIf="!question.picture">Фотографий нет</p>
-    <p *ngIf="!question.URLVideo">Видео нет</p>
-    <p *ngIf="question.picture">Фотографии есть</p>
-    <p *ngIf="question.URLVideo">Видео есть</p>
+    <i
+      class="fab fa-youtube"
+      *ngIf="question.URLVideo"
+      data-title="Данный вопрос содержит видео"
+    ></i>
+    <i
+      *ngIf="question.picture"
+      class="fas fa-images"
+      data-title="Данный вопрос содержит изображение"
+    ></i>
     <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
       Удалить вопрос
     </button>
@@ -67,10 +79,16 @@
     <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
       {{ question.answer3 }}
     </p>
-    <p *ngIf="!question.picture">Фотографий нет</p>
-    <p *ngIf="!question.URLVideo">Видео нет</p>
-    <p *ngIf="question.picture">Фотографии есть</p>
-    <p *ngIf="question.URLVideo">Видео есть</p>
+    <i
+      class="fab fa-youtube"
+      *ngIf="question.URLVideo"
+      data-title="Данный вопрос содержит видео"
+    ></i>
+    <i
+      *ngIf="question.picture"
+      class="fas fa-images"
+      data-title="Данный вопрос содержит изображение"
+    ></i>
     <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
       Удалить вопрос
     </button>
@@ -92,10 +110,16 @@
     <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
       {{ question.answer3 }}
     </p>
-    <p *ngIf="!question.picture">Фотографий нет</p>
-    <p *ngIf="!question.URLVideo">Видео нет</p>
-    <p *ngIf="question.picture">Фотографии есть</p>
-    <p *ngIf="question.URLVideo">Видео есть</p>
+    <i
+      class="fab fa-youtube"
+      *ngIf="question.URLVideo"
+      data-title="Данный вопрос содержит видео"
+    ></i>
+    <i
+      *ngIf="question.picture"
+      class="fas fa-images"
+      data-title="Данный вопрос содержит изображение"
+    ></i>
     <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
       Удалить вопрос
     </button>
@@ -117,10 +141,16 @@
     <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
       {{ question.answer3 }}
     </p>
-    <p *ngIf="!question.picture">Фотографий нет</p>
-    <p *ngIf="!question.URLVideo">Видео нет</p>
-    <p *ngIf="question.picture">Фотографии есть</p>
-    <p *ngIf="question.URLVideo">Видео есть</p>
+    <i
+      class="fab fa-youtube"
+      *ngIf="question.URLVideo"
+      data-title="Данный вопрос содержит видео"
+    ></i>
+    <i
+      *ngIf="question.picture"
+      class="fas fa-images"
+      data-title="Данный вопрос содержит изображение"
+    ></i>
     <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
       Удалить вопрос
     </button>

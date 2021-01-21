@@ -35,7 +35,7 @@ export class QuestionsComponent implements OnInit {
 
   async deleteQuestion(id) {
     try {
-      //await this.questionServices.deleteQuestion(id);
+      await this.questionServices.deleteQuestion(id);
       let index = this.questions.findIndex(el => el.id == id);
       this.questions.splice(index, 1);
       const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);

@@ -9,7 +9,31 @@ section {
     background: $white;
   }
   .one-question {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    i {
+      color: $red;
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+      position: relative;
+      cursor: pointer;
+      transition: 0.5s;
+      &:hover {
+        color: $bright_red;
+        &::after {
+          content: attr(data-title);
+          position: absolute;
+          left: 130%;
+          top: 30%;
+          z-index: 1;
+          background: rgba(255, 255, 255, 0.9);
+          font-size: 11px;
+          padding: 5px 10px;
+          border: 1px solid $bright_red;
+          min-width: 500%;
+          font-weight: 500;
+        }
+      }
+    }
   }
 }
 
