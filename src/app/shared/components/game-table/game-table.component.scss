@@ -10,9 +10,11 @@ section {
   .fullTable {
     border: 5px solid $red;
     border-radius: 1rem;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+    .row {
+      display: grid;
+      grid-template-columns: 40% 60%;
+    }
 
     .category_name {
       background: $red;
@@ -32,7 +34,7 @@ section {
       border-bottom-right-radius: 1rem;
 
       p {
-        width: 16.6%;
+        width: 100%;
         text-align: center;
         font-size: 1.75rem;
         cursor: pointer;
@@ -51,8 +53,10 @@ section {
     width: 100%;
 
     .fullTable {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      .row {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr
+      }
 
       .category_name {
         padding: 2%;

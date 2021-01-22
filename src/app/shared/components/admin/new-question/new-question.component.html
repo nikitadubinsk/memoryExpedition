@@ -38,20 +38,18 @@
     <div class="form-group">
       <label for="text" class="form-name">Категория</label>
       <select
-        formControlName="category"
+        formControlName="category_id"
         class="form-control block"
         [ngClass]="{
           is_invalid:
-            form.get('category').invalid && form.get('category').touched,
+            form.get('category_id').invalid && form.get('category_id').touched,
           is_valid:
-            !form.get('category').invalid && form.get('category').touched
+            !form.get('category_id').invalid && form.get('category_id').touched
         }"
       >
-        <option value="category1">Категория 1</option>
-        <option value="category2">Категория 2</option>
-        <option value="category3">Категория 3</option>
-        <option value="category4">Категория 4</option>
-        <option value="category5">Категория 5</option>
+        <option [value]="category.id" *ngFor="let category of categories">
+          {{ category.name }}
+        </option>
       </select>
     </div>
     <div class="form-group">
@@ -131,7 +129,8 @@
     </div>
     <div class="form-group">
       <label for="text" class="form-name">Картинка (при наличии)</label>
-      <angular-file-uploader #fileUpload1
+      <angular-file-uploader
+        #fileUpload1
         [config]="afuConfig"
         (ApiResponse)="fileUpload($event)"
       ></angular-file-uploader>

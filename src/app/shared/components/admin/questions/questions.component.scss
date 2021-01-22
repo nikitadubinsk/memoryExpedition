@@ -8,6 +8,14 @@ section {
     top: 0;
     background: $white;
   }
+  .edit-category  {
+    align-items: center;
+    display: flex;
+    margin-bottom: 0.5rem;
+    * {
+      margin-right: 1rem;
+    }
+  }
   .one-question {
     margin-bottom: 1rem;
     i {
@@ -47,4 +55,17 @@ section {
 .correctAnswer {
   color: $green;
   font-weight: 900;
+}
+
+@media (max-width: 800px) {
+  .edit-category {
+    align-items: center;
+    margin-bottom: 0.5rem;
+    flex-direction: column;
+
+    * {
+      margin-right: 0;
+      margin-bottom: 0.25rem;
+    }
+  }
 }

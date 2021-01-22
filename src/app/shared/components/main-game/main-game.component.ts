@@ -68,7 +68,7 @@ export class MainGameComponent implements OnInit {
   async closeFullQuestion(obj) {
     this.isShowFullQuestion = obj.flag;
     this.points += obj.points;
-    if (this.countOfQuestion == 30) {
+    if (this.countOfQuestion == this.questions.length) {
       this.finishGame();
     }
   }

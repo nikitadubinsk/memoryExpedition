@@ -6,9 +6,9 @@ import { Question } from 'src/app/app.component';
 })
 export class CategoryPipe implements PipeTransform {
 
-  transform(questions: Question[], category: string = ""): Question[] {
+  transform(questions: Question[], category: number = 0): Question[] {
     return questions.filter(question => {
-      return question.category === category
+      return question.category_id == category
     })
   }
 

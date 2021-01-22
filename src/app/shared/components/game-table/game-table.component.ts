@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Question } from 'src/app/app.component';
+import { QuestionService } from '../../services/question.service';
 
 @Component({
   selector: 'app-game-table',
@@ -12,9 +13,14 @@ export class GameTableComponent implements OnInit {
   isShowFullQuestion = false;
   @Output() onShowFullQuestion: EventEmitter<Object> = new EventEmitter<Object>();
 
-  constructor() { }
+  categories;
 
-  ngOnInit() {
+  constructor(private questionServices: QuestionService) { }
+
+  async ngOnInit() {
+    try {
+      this.categories = await this.questionServices.categories();
+    } catch(e) {}
   }
 
   openFullQuestion(id) {

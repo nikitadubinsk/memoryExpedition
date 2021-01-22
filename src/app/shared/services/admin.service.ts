@@ -29,4 +29,20 @@ export class AdminService {
   statistics() {
     return this.http.get(`${environment.urlApi}/statistics`).toPromise()
   }
+
+  newCategory(category) {
+    return this.http.post(`${environment.urlApi}/newcategory`, category).toPromise()
+  }
+
+  editCategory(category) {
+    return this.http.put(`${environment.urlApi}/edit/category`, category).toPromise()
+  }
+
+  settings() {
+    return this.http.get(`${environment.urlApi}/settings`).toPromise()
+  }
+
+  newSetting(setting) {
+    return this.http.post(`${environment.urlApi}/newsetting`, setting).toPromise()
+  }
 }

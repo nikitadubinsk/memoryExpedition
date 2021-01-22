@@ -6,6 +6,7 @@ import { QuestionService } from 'src/app/shared/services/question.service';
 import { environment } from 'src/environments/environment';
 import { AlertComponent } from '../../alert/alert.component';
  import { AngularFileUploaderComponent } from "angular-file-uploader";
+import { AdminService } from 'src/app/shared/services/admin.service';
 
 
 @Component({
@@ -41,13 +42,17 @@ export class NewQuestionComponent implements OnInit {
 
   form: FormGroup;
   public error$: Subject<string> = new Subject<string>();
+  categories;
 
-  constructor(private questionService: QuestionService, private resolver: ComponentFactoryResolver) { }
+  constructor(private questionService: QuestionService, private adminService: AdminService, private resolver: ComponentFactoryResolver) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    try {
+      this.categories = await this.questionService.categories();
+    } catch(e) {}
     this.form = new FormGroup({
       text: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
+      category_id: new FormControl('', [Validators.required]),
       cost: new FormControl('', [Validators.required]),
       answer1: new FormControl('', [Validators.required]),
       answer2: new FormControl('', [Validators.required]),

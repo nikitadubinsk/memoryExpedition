@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
     NotFoundComponent,
     FinishGameComponent,
     GameTableComponent,
-    ErrorPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

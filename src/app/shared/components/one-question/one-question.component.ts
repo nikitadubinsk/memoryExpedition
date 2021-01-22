@@ -3,6 +3,7 @@ import { Question } from 'src/app/app.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { environment } from 'src/environments/environment';
+import { QuestionService } from '../../services/question.service';
 
 @Component({
   selector: 'app-one-question',
@@ -27,8 +28,9 @@ export class OneQuestionComponent implements OnInit {
   answerFalseFlag = [];
   points = 0;
   isShowContinueButton = false;
+  correctAns;
 
-  constructor(public sanitizer: DomSanitizer) { }
+  constructor(public sanitizer: DomSanitizer, private questionServices: QuestionService) { }
 
   ngOnInit() {
     if (this.question.picture) {
@@ -45,22 +47,23 @@ export class OneQuestionComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.question.URLVideo);
   }
 
-  chooseAnAnswer(ans) {
+  async chooseAnAnswer(ans) {
     if (!this.wasClick) {
       this.wasClick = true;
       this.chooseAnAnswerFlag[ans] = true;
-      setTimeout(() => {
-        if (ans == this.question.correctAnswer) {
+      try {
+        this.correctAns = await this.questionServices.correctAnswer(this.question.id);
+      } catch (e) {}
+      if (ans == this.correctAns.correctAnswer) {
           this.chooseAnAnswerFlag[ans] = false;
           this.answerTrueFlag[ans] = true;
           this.points = this.question.cost;
         } else {
-          this.answerTrueFlag[this.question.correctAnswer] = true;
+          this.answerTrueFlag[this.correctAns.correctAnswer] = true;
           this.answerFalseFlag[ans] = true;
           this.chooseAnAnswerFlag[ans] = false;
         }
         this.isShowContinueButton = true;
-      }, 1500)
     }
   }
 

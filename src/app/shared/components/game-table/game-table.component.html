@@ -1,35 +1,17 @@
 <section class="block">
   <h1 class="red">Экспедиция памяти</h1>
   <div class="fullTable">
-    <p class="category_name">Полководцы</p>
-    <div class="allCost">
-      <p *ngFor="let question of questions | category:'category1'" (click)="openFullQuestion(question.id)"
-        [ngClass]="{'disabled': question.isOpen}">
-        {{question.cost}}</p>
-    </div>
-    <p class="category_name">Военная техника и оружие</p>
-    <div class="allCost">
-      <p *ngFor="let question of questions | category:'category2'" (click)="openFullQuestion(question.id)"
-        [ngClass]="{'disabled': question.isOpen}">
-        {{question.cost}}</p>
-    </div>
-    <p class="category_name">Города и сражения</p>
-    <div class="allCost">
-      <p *ngFor="let question of questions | category:'category3'" (click)="openFullQuestion(question.id)"
-        [ngClass]="{'disabled': question.isOpen}">
-        {{question.cost}}</p>
-    </div>
-    <p class="category_name">Подвиги и герои</p>
-    <div class="allCost">
-      <p *ngFor="let question of questions | category:'category4'" (click)="openFullQuestion(question.id)"
-        [ngClass]="{'disabled': question.isOpen}">
-        {{question.cost}}</p>
-    </div>
-    <p class="category_name">Животные на войне</p>
-    <div class="allCost">
-      <p *ngFor="let question of questions | category:'category5'" (click)="openFullQuestion(question.id)"
-        [ngClass]="{'disabled': question.isOpen}">
-        {{question.cost}}</p>
+    <div *ngFor="let category of categories" class="row">
+      <p class="category_name">{{ category.name }}</p>
+      <div class="allCost">
+        <p
+          *ngFor="let question of questions | category: category.id"
+          (click)="openFullQuestion(question.id)"
+          [ngClass]="{ disabled: question.isOpen }"
+        >
+          {{ question.cost }}
+        </p>
+      </div>
     </div>
   </div>
 </section>

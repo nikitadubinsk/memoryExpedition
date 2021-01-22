@@ -106,6 +106,36 @@ const Users = sequelize.define("Users", {
   }
 });
 
+const Settings = sequelize.define("Settings", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
+  numberOfCategories: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  numberOfQuestions: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  }
+});
+
+const Categories = sequelize.define("Categories", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+});
+
 const Players = sequelize.define("Players", {
   id: {
     type: Sequelize.INTEGER,
@@ -158,7 +188,7 @@ const Questions = sequelize.define("Questions", {
     type: Sequelize.INTEGER,
     allowNull: true
   },
-  category: {
+  category_id: {
     type: Sequelize.STRING,
     allowNull: true
   },
@@ -175,6 +205,15 @@ const Questions = sequelize.define("Questions", {
     allowNull: true
   }
 })
+
+Questions.hasOne(Categories, {
+  foreignKey: "category_id",
+  as: "category"
+});
+Categories.belongsTo(Questions, {
+  foreignKey: "category_id",
+  as: "category"
+});
 
 const Op = Sequelize.Op;
 
@@ -211,9 +250,38 @@ app.get("/api/photo/:filename", (req, res) => {
 });
 
 app.post("/api/newquestion", async (req, res) => {
-  let count = await Questions.count({
-    where: { category: req.body.category }
-  });
+  try {
+    let count = await Questions.count({
+      where: { category_id: req.body.category_id }
+    });
+    let settings = await Settings.findOne({
+      limit: 1,
+      order: [["createdAt", "DESC"]]
+    });
+    if (count < settings.numberOfQuestions) {
+      let result = await Questions.create({
+        text: req.body.text,
+        cost: req.body.cost,
+        answer1: req.body.answer1,
+        answer2: req.body.answer2,
+        answer3: req.body.answer3,
+        correctAnswer: req.body.correctAnswer,
+        category_id: req.body.category_id,
+        picture: req.body.picture,
+        URLVideo: req.body.URLVideo,
+        isOpen: false
+      });
+      res.send(result)
+    } else {
+      res.status(500).send({
+        message: `Количество вопросов в данной категории не должно быть больше ${settings.numberOfQuestions} (сейчас уже ${count})`
+      })
+    }
+  } catch (e) {
+    res.status(500).send({
+      message: `Произошла небольшая ошибка во время создания нового вопроса (${e.message})`
+    })
+  }
   console.log(count);
   if (count < 6) {
     try {
@@ -224,7 +292,7 @@ app.post("/api/newquestion", async (req, res) => {
         answer2: req.body.answer2,
         answer3: req.body.answer3,
         correctAnswer: req.body.correctAnswer,
-        category: req.body.category,
+        category_id: req.body.category_id,
         picture: req.body.picture,
         URLVideo: req.body.URLVideo,
         isOpen: false
@@ -302,15 +370,112 @@ app.get("/api/users", async (req, res) => {
   }
 })
 
+app.get("/api/categories", async (req, res) => {
+  try {
+    let result = await Categories.findAll();
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка при получении списка всех категорий ${e.message}`
+    })
+  }
+})
+
+app.post("/api/newcategory", async (req, res) => {
+  let count = 0;
+  settings = {};
+  try {
+    settings = await Settings.findOne({
+      limit: 1,
+      order: [["createdAt", "DESC"]]
+    });
+    count = await Categories.count();
+    console.log(count);
+    console.log(settings.numberOfCategories);
+    if (count > settings.numberOfCategories-1) {
+      res.status(500).send({
+        message: `Максимальное количество категорий - ${settings.numberOfCategories}`
+      })
+    } else {
+      let result = await Categories.create({
+        name: req.body.name,
+      });
+      res.send(result)
+    }
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка во время создания новой категории ${e.message}`
+    })
+  }
+})
+
+app.put("/api/edit/category", async (req, res) => {
+  try {
+    let result = await Categories.update({
+      name: req.body.name,
+    }, {
+      where: {
+        id: req.body.id,
+      }
+    });
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка во время редактирования категории ${e.message}`
+    })
+  }
+})
+
 app.get("/api/questions", async (req, res) => {
   try {
-    let result = await Questions.findAll();
+    let result = await Questions.findAll({
+      attributes: ['id', 'category_id', 'cost', 'isOpen', 'text', 'answer1', 'answer2', 'answer3', 'picture', 'URLVideo'],
+    });
     res.send(result)
   }
   catch (e) {
     console.error(e);
     res.status(500).send({
       message: "Произошла небольшая ошибка при получении списка всех вопросов"
+    })
+  }
+})
+
+app.get("/api/admin/questions", async (req, res) => {
+  try {
+    let result = await Questions.findAll({
+      include: [{ model: Categories, as: "category" }],
+    });
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: "Произошла небольшая ошибка при получении списка всех вопросов"
+    })
+  }
+})
+
+app.get("/api/correct/:id", async (req, res) => {
+  try {
+    let result = await Questions.findOne({
+      where: {
+        id: req.params.id,
+      },
+      attributes: ['correctAnswer']
+    });
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка при получении ответа на вопрос ${e.message}`
     })
   }
 })
@@ -406,6 +571,38 @@ app.get("/api/statistics", async (req, res) => {
     console.error(e);
     res.status(500).send({
       message: `Произошла небольшая ошибка во время получения статистики ${e.message}`
+    })
+  }
+})
+
+app.get("/api/settings", async (req, res) => {
+  try {
+    let result = await Settings.findOne({
+      limit: 1,
+      order: [["createdAt", "DESC"]]
+    });
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка при получении настроек ${e.message}`
+    })
+  }
+})
+
+app.post("/api/newsetting", async (req, res) => {
+  try {
+    let result = await Settings.create({
+      numberOfCategories: req.body.numberOfCategories,
+      numberOfQuestions: req.body.numberOfQuestions,
+    });
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка во время сохранения настроек ${e.message}`
     })
   }
 })

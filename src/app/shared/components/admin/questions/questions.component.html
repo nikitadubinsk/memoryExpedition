@@ -1,160 +1,148 @@
 <section class="container" *ngIf="!loading">
+  <h2>Основные настройки</h2>
+  <div class="edit-category">
+    <h4 *ngIf="!isSettingsEdit[0]">
+      Количество категорий: {{ settings.numberOfCategories }}
+    </h4>
+    <input
+      type="number"
+      placeholder="0"
+      [(ngModel)]="settings.numberOfCategories"
+      class="form-control"
+      *ngIf="isSettingsEdit[0]"
+    />
+    <button
+      class="btn btn-primary"
+      *ngIf="!isSettingsEdit[0]"
+      (click)="editSettings(0)"
+    >
+      Изменить
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="saveSettings()"
+      *ngIf="isSettingsEdit[0]"
+      [disabled]="!settings.numberOfCategories"
+    >
+      Сохранить
+    </button>
+  </div>
+  <div class="edit-category">
+    <h4 *ngIf="!isSettingsEdit[1]">
+      Количество вопросов в одной категории: {{ settings.numberOfQuestions }}
+    </h4>
+    <input
+      type="number"
+      placeholder="0"
+      [(ngModel)]="settings.numberOfQuestions"
+      class="form-control"
+      *ngIf="isSettingsEdit[1]"
+    />
+    <button
+      class="btn btn-primary"
+      *ngIf="!isSettingsEdit[1]"
+      (click)="editSettings(1)"
+    >
+      Изменить
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="saveSettings()"
+      *ngIf="isSettingsEdit[1]"
+      [disabled]="!settings.numberOfQuestions"
+    >
+      Сохранить
+    </button>
+  </div>
+  <br />
   <h2>Список вопросов</h2>
-  <h3>Вопросы 1 категории</h3>
-  <div
-    *ngFor="let question of questions | category: 'category1'; let i = index"
-    class="one-question"
-  >
-    <p>{{ i + 1 }}. {{ question.text }}</p>
-    <p><strong>Стоимость:</strong> {{ question.cost }}</p>
-    <p><strong>Варианты ответа</strong></p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 1 }">
-      {{ question.answer1 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 2 }">
-      {{ question.answer2 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
-      {{ question.answer3 }}
-    </p>
-    <i
-      class="fab fa-youtube"
-      *ngIf="question.URLVideo"
-      data-title="Данный вопрос содержит видео"
-    ></i>
-    <i
-      *ngIf="question.picture"
-      class="fas fa-images"
-      data-title="Данный вопрос содержит изображение"
-    ></i>
-    <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
-      Удалить вопрос
-    </button>
+  <button class="btn btn-primary" (click)="exportToExcel()">
+    Экспортировать в Excel
+  </button>
+  <br />
+
+  <div *ngFor="let cat of categories; let i = index">
+    <h3>Вопросы категории "{{ cat.name }}"</h3>
+    <div class="edit-category">
+      <input
+        *ngIf="isCategoryEdit[i]"
+        type="text"
+        placeholder="Название категории"
+        [(ngModel)]="category.name"
+        class="form-control"
+      />
+      <button
+        class="btn btn-alternate"
+        (click)="editCategoryName(i)"
+        *ngIf="!isCategoryEdit[i]"
+      >
+        Редактировать название категории
+      </button>
+      <button
+        class="btn btn-alternate"
+        [disabled]="!category.name.trim()"
+        (click)="saveCategoryName()"
+        *ngIf="isCategoryEdit[i]"
+      >
+        Сохранить название категории
+      </button>
+    </div>
+    <div
+      *ngFor="let question of questions | category: cat.id; let idx = index"
+      class="one-question"
+    >
+      <p>{{ idx + 1 }}. {{ question.text }}</p>
+      <p><strong>Стоимость:</strong> {{ question.cost }}</p>
+      <p><strong>Варианты ответа</strong></p>
+      <p [ngClass]="{ correctAnswer: question.correctAnswer == 1 }">
+        {{ question.answer1 }}
+      </p>
+      <p [ngClass]="{ correctAnswer: question.correctAnswer == 2 }">
+        {{ question.answer2 }}
+      </p>
+      <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
+        {{ question.answer3 }}
+      </p>
+      <i
+        class="fab fa-youtube"
+        *ngIf="question.URLVideo"
+        data-title="Данный вопрос содержит видео"
+      ></i>
+      <i
+        *ngIf="question.picture"
+        class="fas fa-images"
+        data-title="Данный вопрос содержит изображение"
+      ></i>
+      <button
+        class="btn btn-primary"
+        (click)="deletePopupQuestion(question.id)"
+      >
+        Удалить вопрос
+      </button>
+    </div>
   </div>
-  <h3>Вопросы 2 категории</h3>
-  <div
-    *ngFor="let question of questions | category: 'category2'; let i = index"
-    class="one-question"
+  <br />
+  <form
+    [formGroup]="form"
+    (ngSubmit)="(createCategory)"
+    *ngIf="categories.length < settings.numberOfCategories"
   >
-    <p>{{ i + 1 }}. {{ question.text }}</p>
-    <p><strong>Стоимость:</strong> {{ question.cost }}</p>
-    <p><strong>Варианты ответа</strong></p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 1 }">
-      {{ question.answer1 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 2 }">
-      {{ question.answer2 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
-      {{ question.answer3 }}
-    </p>
-    <i
-      class="fab fa-youtube"
-      *ngIf="question.URLVideo"
-      data-title="Данный вопрос содержит видео"
-    ></i>
-    <i
-      *ngIf="question.picture"
-      class="fas fa-images"
-      data-title="Данный вопрос содержит изображение"
-    ></i>
-    <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
-      Удалить вопрос
+    <h2>Добавить новую категорию</h2>
+    <div class="form-error" *ngIf="error$ | async as error">
+      {{ error }}
+    </div>
+    <div class="form-group">
+      <input
+        type="text"
+        formControlName="name"
+        class="form-control"
+        placeholder="Название категории"
+      />
+    </div>
+    <button class="btn btn-primary" (click)="createCategory()">
+      Сохранить категорию
     </button>
-  </div>
-  <h3>Вопросы 3 категории</h3>
-  <div
-    *ngFor="let question of questions | category: 'category3'; let i = index"
-    class="one-question"
-  >
-    <p>{{ i + 1 }}. {{ question.text }}</p>
-    <p><strong>Стоимость:</strong> {{ question.cost }}</p>
-    <p><strong>Варианты ответа</strong></p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 1 }">
-      {{ question.answer1 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 2 }">
-      {{ question.answer2 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
-      {{ question.answer3 }}
-    </p>
-    <i
-      class="fab fa-youtube"
-      *ngIf="question.URLVideo"
-      data-title="Данный вопрос содержит видео"
-    ></i>
-    <i
-      *ngIf="question.picture"
-      class="fas fa-images"
-      data-title="Данный вопрос содержит изображение"
-    ></i>
-    <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
-      Удалить вопрос
-    </button>
-  </div>
-  <h3>Вопросы 4 категории</h3>
-  <div
-    *ngFor="let question of questions | category: 'category4'; let i = index"
-    class="one-question"
-  >
-    <p>{{ i + 1 }}. {{ question.text }}</p>
-    <p><strong>Стоимость:</strong> {{ question.cost }}</p>
-    <p><strong>Варианты ответа</strong></p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 1 }">
-      {{ question.answer1 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 2 }">
-      {{ question.answer2 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
-      {{ question.answer3 }}
-    </p>
-    <i
-      class="fab fa-youtube"
-      *ngIf="question.URLVideo"
-      data-title="Данный вопрос содержит видео"
-    ></i>
-    <i
-      *ngIf="question.picture"
-      class="fas fa-images"
-      data-title="Данный вопрос содержит изображение"
-    ></i>
-    <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
-      Удалить вопрос
-    </button>
-  </div>
-  <h3>Вопросы 5 категории</h3>
-  <div
-    *ngFor="let question of questions | category: 'category5'; let i = index"
-    class="one-question"
-  >
-    <p>{{ i + 1 }}. {{ question.text }}</p>
-    <p><strong>Стоимость:</strong> {{ question.cost }}</p>
-    <p><strong>Варианты ответа</strong></p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 1 }">
-      {{ question.answer1 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 2 }">
-      {{ question.answer2 }}
-    </p>
-    <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
-      {{ question.answer3 }}
-    </p>
-    <i
-      class="fab fa-youtube"
-      *ngIf="question.URLVideo"
-      data-title="Данный вопрос содержит видео"
-    ></i>
-    <i
-      *ngIf="question.picture"
-      class="fas fa-images"
-      data-title="Данный вопрос содержит изображение"
-    ></i>
-    <button class="btn btn-primary" (click)="deleteQuestion(question.id)">
-      Удалить вопрос
-    </button>
-  </div>
+  </form>
 </section>
 
 <div class="loading container" *ngIf="loading">
@@ -162,3 +150,18 @@
 </div>
 
 <ng-template appRef></ng-template>
+
+<div class="blackScreen" [@popup]="" *ngIf="isShowDeletePopup">
+  <div class="modal">
+    <h3>Вы уверены, что хотите удалить данный вопрос?</h3>
+    <br />
+    <div class="btn-group">
+      <button class="btn btn-primary" (click)="deleteQuestion()">
+        Удалить
+      </button>
+      <button class="btn btn-alternate" (click)="closeDeleteQuestion()">
+        Отменить
+      </button>
+    </div>
+  </div>
+</div>
