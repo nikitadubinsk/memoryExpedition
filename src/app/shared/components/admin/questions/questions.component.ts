@@ -112,8 +112,9 @@ export class QuestionsComponent implements OnInit {
 
   async createCategory() {
     try {
-      await this.adminServices.newCategory(this.form.value)
+      let cat = await this.adminServices.newCategory(this.form.value)
       this.form.reset();
+      this.categories.push(cat);
     } catch (e) {
       this.error$.next(e.error.message)
     }
@@ -181,6 +182,7 @@ export class QuestionsComponent implements OnInit {
     try {
       await this.adminServices.deleteQuestions();
       this.questions = [];
+      this.closeDeleteAllQuestions();
     } catch(e) {}
   }
 

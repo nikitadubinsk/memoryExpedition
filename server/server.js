@@ -76,8 +76,8 @@ app.get("/admin/questions", (req, res) => {
 
 
 const CONFIG = {
-  DB: "std_704",
-  USERNAME: "std_704",
+  DB: "std_704_memoryexpedition",
+  USERNAME: "std_704_memoryexpedition",
   PASSWORD: "12345678",
   DIALECT: "mysql",
   HOST: "std-mysql.ist.mospolytech.ru"
@@ -546,13 +546,15 @@ app.post("/api/newplayer", async (req, res) => {
 
 app.delete("/api/deletequestions", async (req, res) => {
   try {
-    let result = await Questions.destroy();
+    let result = await Questions.destroy({
+      where: {'id': {[Op.lt]: 100000}}
+    });
     res.send(result.status)
   }
   catch (e) {
     console.error(e);
     res.status(500).send({
-      message: "Произошла небольшая ошибка во время удаления всех вопросов"
+      message: `Произошла небольшая ошибка во время удаления всех вопросов ${e.message}`
     })
   }
 })
