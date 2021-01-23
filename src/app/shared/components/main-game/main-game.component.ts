@@ -33,6 +33,7 @@ export class MainGameComponent implements OnInit {
   points = 0;
   countOfQuestion = 0;
   isShowPopapFinishGame = false;
+  categories;
 
   constructor(private questionServices: QuestionService, private router: Router) { }
 
@@ -40,6 +41,7 @@ export class MainGameComponent implements OnInit {
     this.loading = true;
     try {
       this.questions = await this.questionServices.allQuestions();
+      this.categories = await this.questionServices.categories();
       this.questions.sort((a, b) => {
         if (a.cost > b.cost) {return 1}
         if (a.cost < b.cost) {return -1}

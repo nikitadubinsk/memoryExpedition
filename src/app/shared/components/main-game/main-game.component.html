@@ -6,6 +6,7 @@
     <div *ngIf="!isShowFullQuestion">
       <app-game-table
         [questions]="questions"
+        [categories]="categories"
         (onShowFullQuestion)="showFullQuestion($event)"
       >
       </app-game-table>

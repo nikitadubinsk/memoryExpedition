@@ -97,6 +97,7 @@
     <div
       *ngFor="let question of questions | category: cat.id; let idx = index"
       class="one-question"
+      [ngClass]="{ disabled: idx + 1 > settings.numberOfQuestions }"
     >
       <p>{{ idx + 1 }}. {{ question.text }}</p>
       <p><strong>Стоимость:</strong> {{ question.cost }}</p>
@@ -184,12 +185,12 @@
       <button class="btn btn-primary" (click)="deleteAllQuestions()">
         Удалить
       </button>
-      <button class="btn btn-primary" (click)="exportToExcel()">
-        Экспортировать
-      </button>
       <button class="btn btn-alternate" (click)="closeDeleteAllQuestions()">
         Отменить
       </button>
     </div>
+    <button class="btn btn-primary block mt-4" (click)="exportToExcel()">
+      Экспортировать
+    </button>
   </div>
 </div>
