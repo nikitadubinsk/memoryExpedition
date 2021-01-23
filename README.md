@@ -3,8 +3,12 @@
 ## Тестовые данные
 
 В административной панели:
+
 логин: nikitadubinsk@gmail.com
+
 пароль: 123456
+
+сайт: http://memoryexpedition.std-704.ist.mospolytech.ru
 
 ## Запуск проекта
 
