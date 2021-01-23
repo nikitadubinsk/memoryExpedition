@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = 3000;
+const PORT = 3001;
 const bodyParser = require('body-parser');
 const multer = require("multer");
 const history = require("connect-history-api-fallback");
@@ -282,7 +282,6 @@ app.post("/api/newquestion", async (req, res) => {
       message: `Произошла небольшая ошибка во время создания нового вопроса (${e.message})`
     })
   }
-  console.log(count);
   if (count < 6) {
     try {
       let result = await Questions.create({
