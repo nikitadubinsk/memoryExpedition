@@ -5,7 +5,7 @@ import { RefDirective } from 'src/app/shared/directives/ref.directive';
 import { QuestionService } from 'src/app/shared/services/question.service';
 import { environment } from 'src/environments/environment';
 import { AlertComponent } from '../../alert/alert.component';
- import { AngularFileUploaderComponent } from "angular-file-uploader";
+import { AngularFileUploaderComponent } from "angular-file-uploader";
 import { AdminService } from 'src/app/shared/services/admin.service';
 
 
@@ -49,17 +49,17 @@ export class NewQuestionComponent implements OnInit {
   async ngOnInit() {
     try {
       this.categories = await this.questionService.categories();
+      this.form = new FormGroup({
+        text: new FormControl('', [Validators.required]),
+        category_id: new FormControl('', [Validators.required]),
+        cost: new FormControl('', [Validators.required]),
+        answer1: new FormControl('', [Validators.required]),
+        answer2: new FormControl('', [Validators.required]),
+        answer3: new FormControl('', [Validators.required]),
+        correctAnswer: new FormControl('', [Validators.required]),
+        URLVideo: new FormControl('', []),
+      });
     } catch(e) {}
-    this.form = new FormGroup({
-      text: new FormControl('', [Validators.required]),
-      category_id: new FormControl('', [Validators.required]),
-      cost: new FormControl('', [Validators.required]),
-      answer1: new FormControl('', [Validators.required]),
-      answer2: new FormControl('', [Validators.required]),
-      answer3: new FormControl('', [Validators.required]),
-      correctAnswer: new FormControl('', [Validators.required]),
-      URLVideo: new FormControl('', []),
-    });
   }
 
   // Функция, возвращение имени загруженного файла

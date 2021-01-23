@@ -1,5 +1,5 @@
 const express = require('express');
-const PORT = 3001;
+const PORT = 3000;
 const bodyParser = require('body-parser');
 const multer = require("multer");
 const history = require("connect-history-api-fallback");
@@ -372,6 +372,25 @@ app.get("/api/users", async (req, res) => {
 
 app.get("/api/categories", async (req, res) => {
   try {
+    let settings = await Settings.findOne({
+      limit: 1,
+      order: [["createdAt", "DESC"]]
+    });
+    let result = await Categories.findAll({
+      limit: settings.numberOfCategories
+    });
+    res.send(result)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: `Произошла небольшая ошибка при получении списка всех категорий ${e.message}`
+    })
+  }
+})
+
+app.get("/api/admincategories", async (req, res) => {
+  try {
     let result = await Categories.findAll();
     res.send(result)
   }
@@ -506,6 +525,19 @@ app.post("/api/newplayer", async (req, res) => {
     console.error(e);
     res.status(500).send({
       message: "Произошла небольшая ошибка во время сохранения данных нового игрока"
+    })
+  }
+})
+
+app.delete("/api/deletequestions", async (req, res) => {
+  try {
+    let result = await Questions.destroy();
+    res.send(result.status)
+  }
+  catch (e) {
+    console.error(e);
+    res.status(500).send({
+      message: "Произошла небольшая ошибка во время удаления всех вопросов"
     })
   }
 })

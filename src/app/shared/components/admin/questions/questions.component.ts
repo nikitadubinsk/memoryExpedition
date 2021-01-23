@@ -40,6 +40,7 @@ export class QuestionsComponent implements OnInit {
   loading = false;
   questions;
   isShowDeletePopup = false;
+  isShowDeleteAllPopup = false;
   idQuestion = -1;
   categories;
   category;
@@ -65,7 +66,7 @@ export class QuestionsComponent implements OnInit {
     this.loading = true;
     try {
       this.questions = await this.questionServices.allAdminQuestions();
-      this.categories = await this.questionServices.categories();
+      this.categories = await this.adminServices.admincategories();
       this.settings = await this.adminServices.settings();
     } catch (e) {
       const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
@@ -165,6 +166,21 @@ export class QuestionsComponent implements OnInit {
       await this.adminServices.newSetting(this.settings);
       this.isSettingsEdit[0] = false;
       this.isSettingsEdit[1] = false;
+    } catch(e) {}
+  }
+
+  showPopupDeleteAllQuestions() {
+    this.isShowDeleteAllPopup = true;
+  }
+
+  closeDeleteAllQuestions() {
+    this.isShowDeleteAllPopup = false;
+  }
+
+  async deleteAllQuestions() {
+    try {
+      await this.adminServices.deleteQuestions();
+      this.questions = [];
     } catch(e) {}
   }
 

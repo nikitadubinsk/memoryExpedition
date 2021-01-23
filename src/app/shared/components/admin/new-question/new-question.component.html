@@ -15,7 +15,7 @@
         class="form-control block"
         placeholder="Текст вопроса"
         formControlName="text"
-        name="photo"
+        name="text"
         [ngClass]="{
           is_invalid: form.get('text').invalid && form.get('text').touched,
           is_valid: !form.get('text').invalid && form.get('text').touched
@@ -23,12 +23,13 @@
       ></textarea>
     </div>
     <div class="form-group">
-      <label for="text" class="form-name">Стоимость вопроса</label>
+      <label for="cost" class="form-name">Стоимость вопроса</label>
       <input
         class="form-control block"
         type="number"
         placeholder="0"
         formControlName="cost"
+        name="cost"
         [ngClass]="{
           is_invalid: form.get('cost').invalid && form.get('cost').touched,
           is_valid: !form.get('cost').invalid && form.get('cost').touched

@@ -45,4 +45,12 @@ export class AdminService {
   newSetting(setting) {
     return this.http.post(`${environment.urlApi}/newsetting`, setting).toPromise()
   }
+
+  deleteQuestions() {
+    return this.http.delete(`${environment.urlApi}/deletequestions`).toPromise()
+  }
+
+  admincategories() {
+    return this.http.get(`${environment.urlApi}/admincategories`).toPromise()
+  }
 }

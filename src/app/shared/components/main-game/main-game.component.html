@@ -4,22 +4,33 @@
   </div>
   <div *ngIf="!loading" class="game_table block">
     <div *ngIf="!isShowFullQuestion">
-      <app-game-table [questions]="questions" (onShowFullQuestion)="showFullQuestion($event)">
+      <app-game-table
+        [questions]="questions"
+        (onShowFullQuestion)="showFullQuestion($event)"
+      >
       </app-game-table>
       <p (click)="showPopupWithFinishGame()">Завершить игру→</p>
     </div>
-    <app-one-question *ngIf="isShowFullQuestion" [question]="question"
-      (onCloseFullQuestion)="closeFullQuestion($event)"></app-one-question>
+    <app-one-question
+      *ngIf="isShowFullQuestion"
+      [question]="question"
+      (onCloseFullQuestion)="closeFullQuestion($event)"
+    ></app-one-question>
   </div>
 </section>
 
 <div class="blackScreen" *ngIf="isShowPopapFinishGame" [@popup]="">
   <div class="modal">
-    <h3>Вы точно хотите закончить игру? Вам осталось ответить всего на {{30 - countOfQuestion}} вопроса(ов)</h3>
-    <br>
+    <h3>
+      Вы точно хотите закончить игру? Вам осталось ответить всего на
+      {{ questions.length - countOfQuestion }} вопроса(ов)
+    </h3>
+    <br />
     <div class="btn-group">
       <button class="btn btn-primary" (click)="finishGame()">Завершить</button>
-      <button class="btn btn-alternate" (click)="closePopupWithFinishGame()">Продолжить</button>
+      <button class="btn btn-alternate" (click)="closePopupWithFinishGame()">
+        Продолжить
+      </button>
     </div>
   </div>
 </div>

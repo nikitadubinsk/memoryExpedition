@@ -56,13 +56,20 @@
   </div>
   <br />
   <h2>Список вопросов</h2>
-  <button class="btn btn-primary" (click)="exportToExcel()">
-    Экспортировать в Excel
-  </button>
+  <div class="edit-category">
+    <button class="btn btn-primary" (click)="exportToExcel()">
+      Экспортировать в Excel
+    </button>
+    <button class="btn btn-alternate" (click)="showPopupDeleteAllQuestions()">
+      Удалить все вопросы
+    </button>
+  </div>
   <br />
 
   <div *ngFor="let cat of categories; let i = index">
-    <h3>Вопросы категории "{{ cat.name }}"</h3>
+    <h3 [ngClass]="{ disabled: i + 1 > settings.numberOfCategories }">
+      Вопросы категории "{{ cat.name }}"
+    </h3>
     <div class="edit-category">
       <input
         *ngIf="isCategoryEdit[i]"
@@ -160,6 +167,27 @@
         Удалить
       </button>
       <button class="btn btn-alternate" (click)="closeDeleteQuestion()">
+        Отменить
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="blackScreen" [@popup]="" *ngIf="isShowDeleteAllPopup">
+  <div class="modal">
+    <h3>
+      Вы уверены, что хотите удалить все вопросы? Вы также можете экспортировать
+      все вопросы
+    </h3>
+    <br />
+    <div class="btn-group">
+      <button class="btn btn-primary" (click)="deleteAllQuestions()">
+        Удалить
+      </button>
+      <button class="btn btn-primary" (click)="exportToExcel()">
+        Экспортировать
+      </button>
+      <button class="btn btn-alternate" (click)="closeDeleteAllQuestions()">
         Отменить
       </button>
     </div>
