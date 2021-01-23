@@ -452,15 +452,31 @@ app.put("/api/edit/category", async (req, res) => {
 
 app.get("/api/questions", async (req, res) => {
   try {
-    let result = await Questions.findAll({
-      attributes: ['id', 'category_id', 'cost', 'isOpen', 'text', 'answer1', 'answer2', 'answer3', 'picture', 'URLVideo'],
+    let settings = await Settings.findOne({
+      limit: 1,
+      order: [["createdAt", "DESC"]]
     });
+    let category = await Categories.findAll({
+      attributes: ['id'],
+      limit: settings.numberOfCategories
+    });
+    let result = [];
+    let r = [];
+    for (let i = 0; i < category.length; i++) {
+      r = await Questions.findAll({
+        where: {'category_id': category[i].id},
+        limit: settings.numberOfQuestions,
+        attributes: ['id', 'category_id', 'cost', 'isOpen', 'text', 'answer1', 'answer2', 'answer3', 'picture', 'URLVideo'],
+      });
+      result = result.concat(r);
+      r = [];
+    }
     res.send(result)
   }
   catch (e) {
     console.error(e);
     res.status(500).send({
-      message: "Произошла небольшая ошибка при получении списка всех вопросов"
+      message: `Произошла небольшая ошибка при получении списка всех вопросов ${e.message}`
     })
   }
 })
