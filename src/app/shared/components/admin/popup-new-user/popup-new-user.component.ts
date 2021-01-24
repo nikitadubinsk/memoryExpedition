@@ -14,6 +14,7 @@ export class PopupNewUserComponent implements OnInit {
   public error$: Subject<string> = new Subject<string>();
   isShowPopupWithRegistrationUser: false
   @Output() onOpenPopup: EventEmitter<Object> = new EventEmitter<Object>()
+  isError = false;
 
   constructor(private adminServices: AdminService) { }
 
@@ -25,12 +26,17 @@ export class PopupNewUserComponent implements OnInit {
   }
 
   async registration() {
-    try {
-      await this.adminServices.newUser(this.form.value);
-      this.form.reset();
-      this.onOpenPopup.emit({flag: false, action: 'new'});
-    } catch (e) {
-      this.onOpenPopup.emit({flag: false, action: 'error'});
+    if (Object.values(this.form.value).every(el => el.toString().trim())) {
+      try {
+        this.isError = false;
+        await this.adminServices.newUser(this.form.value);
+        this.form.reset();
+        this.onOpenPopup.emit({flag: false, action: 'new'});
+      } catch (e) {
+        this.onOpenPopup.emit({flag: false, action: 'error'});
+      }
+    } else {
+      this.isError = true;
     }
   }
 

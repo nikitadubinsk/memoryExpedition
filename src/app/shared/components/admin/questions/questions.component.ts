@@ -49,6 +49,7 @@ export class QuestionsComponent implements OnInit {
   settings;
   isShowMiniAlert = false;
   alertText = '';
+  isError = false;
 
   constructor(private questionServices: QuestionService, private adminServices: AdminService) { }
 
@@ -56,7 +57,7 @@ export class QuestionsComponent implements OnInit {
     // this.settings['numberOfCategories'] = 5;
     // this.settings['numberOfQuestions'] = 6;
     this.form = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.email]),
+      name: new FormControl('', [Validators.required]),
     });
     for(let i=0; i<5; i++) {
       this.isCategoryEdit[i] = false;
@@ -107,22 +108,27 @@ export class QuestionsComponent implements OnInit {
   }
 
   async createCategory() {
-    try {
-      let cat = await this.adminServices.newCategory(this.form.value)
-      this.form.reset();
-      this.categories.push(cat);
-      this.alertText = "Вы успешно добавили новую категорию";
-      this.isShowMiniAlert = true;
-      setTimeout(() => {
-        this.isShowMiniAlert = false;
-      }, 5000)
-    } catch (e) {
-      this.error$.next(e.error.message)
-      this.alertText = "К сожалению, произошла небольшая ошибка";
-      this.isShowMiniAlert = true;
-      setTimeout(() => {
-        this.isShowMiniAlert = false;
-      }, 5000)
+    if (Object.values(this.form.value).every(el => el.toString().trim())) {
+      this.isError = false;
+      try {
+        let cat = await this.adminServices.newCategory(this.form.value)
+        this.form.reset();
+        this.categories.push(cat);
+        this.alertText = "Вы успешно добавили новую категорию";
+        this.isShowMiniAlert = true;
+        setTimeout(() => {
+          this.isShowMiniAlert = false;
+        }, 5000)
+      } catch (e) {
+        this.error$.next(e.error.message)
+        this.alertText = "К сожалению, произошла небольшая ошибка";
+        this.isShowMiniAlert = true;
+        setTimeout(() => {
+          this.isShowMiniAlert = false;
+        }, 5000)
+      }
+    } else {
+      this.isError = true;
     }
   }
 
@@ -133,21 +139,26 @@ export class QuestionsComponent implements OnInit {
   }
 
   async saveCategoryName() {
-    try {
-      await this.adminServices.editCategory(this.category);
-      this.categories.find(el => el.id == this.category.id).name = this.category.name;
-      this.isCategoryEdit[this.index]  = false;
-      this.alertText = "Вы успешно изменили название категории";
-      this.isShowMiniAlert = true;
-      setTimeout(() => {
-        this.isShowMiniAlert = false;
-      }, 5000)
-    } catch (e) {
-      this.alertText = "К сожалению, произошла небольшая ошибка";
-      this.isShowMiniAlert = true;
-      setTimeout(() => {
-        this.isShowMiniAlert = false;
-      }, 5000)
+    if (this.category.name.toString().trim()) {
+      this.isError = false;
+      try {
+        await this.adminServices.editCategory(this.category);
+        this.categories.find(el => el.id == this.category.id).name = this.category.name;
+        this.isCategoryEdit[this.index]  = false;
+        this.alertText = "Вы успешно изменили название категории";
+        this.isShowMiniAlert = true;
+        setTimeout(() => {
+          this.isShowMiniAlert = false;
+        }, 5000)
+      } catch (e) {
+        this.alertText = "К сожалению, произошла небольшая ошибка";
+        this.isShowMiniAlert = true;
+        setTimeout(() => {
+          this.isShowMiniAlert = false;
+        }, 5000)
+      }
+    } else {
+      this.isError = true;
     }
   }
 
@@ -179,21 +190,26 @@ export class QuestionsComponent implements OnInit {
   }
 
   async saveSettings() {
-    try {
-      await this.adminServices.newSetting(this.settings);
-      this.isSettingsEdit[0] = false;
-      this.isSettingsEdit[1] = false;
-      this.alertText = "Вы успешно изменили настройки";
-      this.isShowMiniAlert = true;
-      setTimeout(() => {
-        this.isShowMiniAlert = false;
-      }, 5000)
-    } catch(e) {
-      this.alertText = "К сожалению, произошла небольшая ошибка";
-      this.isShowMiniAlert = true;
-      setTimeout(() => {
-        this.isShowMiniAlert = false;
-      }, 5000)
+    if (Object.values(this.settings).every(el => el.toString().trim())) {
+      this.isError = false;
+      try {
+        await this.adminServices.newSetting(this.settings);
+        this.isSettingsEdit[0] = false;
+        this.isSettingsEdit[1] = false;
+        this.alertText = "Вы успешно изменили настройки";
+        this.isShowMiniAlert = true;
+        setTimeout(() => {
+          this.isShowMiniAlert = false;
+        }, 5000)
+      } catch(e) {
+        this.alertText = "К сожалению, произошла небольшая ошибка";
+        this.isShowMiniAlert = true;
+        setTimeout(() => {
+          this.isShowMiniAlert = false;
+        }, 5000)
+      }
+    } else {
+      this.isError = true;
     }
   }
 

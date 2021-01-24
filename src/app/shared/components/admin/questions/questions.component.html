@@ -1,5 +1,6 @@
 <section class="container" *ngIf="!loading">
   <h2>Основные настройки</h2>
+  <p class="red" *ngIf="isError">Пожалуйста, заполните все поля!</p>
   <div class="edit-category">
     <h4 *ngIf="!isSettingsEdit[0]">
       Количество категорий: {{ settings.numberOfCategories }}
@@ -56,6 +57,7 @@
         Сохранить название категории
       </button>
     </div>
+    <p class="red" *ngIf="isError">Пожалуйста, заполните все поля!</p>
     <div *ngFor="let question of questions | category: cat.id; let idx = index" class="one-question"
       [ngClass]="{ disabled: idx + 1 > settings.numberOfQuestions || i + 1 > settings.numberOfCategories }">
       <p>{{ idx + 1 }}. {{ question.text }}</p>
@@ -87,9 +89,10 @@
     <div class="form-group">
       <input type="text" formControlName="name" class="form-control" placeholder="Название категории" />
     </div>
-    <button class="btn btn-primary" (click)="createCategory()">
+    <button class="btn btn-primary" (click)="createCategory()" [disabled]="form.invalid">
       Сохранить категорию
     </button>
+    <p class="red" *ngIf="isError">Пожалуйста, заполните все поля!</p>
   </form>
 </section>
 

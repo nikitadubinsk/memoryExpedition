@@ -11,6 +11,7 @@ export class MainPageComponent implements OnInit {
 
   form : FormGroup;
   date = new Date();
+  isError = false;
 
   constructor(private router: Router) { }
 
@@ -23,9 +24,13 @@ export class MainPageComponent implements OnInit {
   }
 
   startGame() {
-    localStorage['name'] = this.form.value.name;
-    localStorage['link'] = this.form.value.link;
-    this.router.navigate(['/game'])
+    if (Object.values(this.form.value).every(el => el.toString().trim())) {
+      localStorage['name'] = this.form.value.name;
+      localStorage['link'] = this.form.value.link;
+      this.router.navigate(['/game'])
+    } else {
+      this.isError = true;
+    }
   }
 
 }

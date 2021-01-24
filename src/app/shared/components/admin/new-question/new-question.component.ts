@@ -22,6 +22,7 @@ export class NewQuestionComponent implements OnInit {
   private fileUpload1: AngularFileUploaderComponent;
 
   filename = "";
+  isError = false;
 
   afuConfig = {
     multiple: false,
@@ -71,21 +72,26 @@ export class NewQuestionComponent implements OnInit {
   }
 
   async createQuestion() {
-    this.form.value['picture'] = this.filename
-    try {
-      await this.questionService.createQuestion(this.form.value);
-      this.form.reset();
-      const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
-      this.refDir.containerRef.clear();
-      const component = this.refDir.containerRef.createComponent(alertFactory);
-      component.instance.title = "Вы успешно добавили новый вопрос"
-      setTimeout(() => {
+    if (Object.values(this.form.value).every(el => el.toString().trim())) {
+      this.isError = false;
+      this.form.value['picture'] = this.filename
+      try {
+        await this.questionService.createQuestion(this.form.value);
+        this.form.reset();
+        const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
         this.refDir.containerRef.clear();
-      }, 5000)
-      this.fileUpload1.resetFileUpload();
-      this.filename = undefined;
-    } catch (e) {
-      this.error$.next(e.error.message)
+        const component = this.refDir.containerRef.createComponent(alertFactory);
+        component.instance.title = "Вы успешно добавили новый вопрос"
+        setTimeout(() => {
+          this.refDir.containerRef.clear();
+        }, 5000)
+        this.fileUpload1.resetFileUpload();
+        this.filename = undefined;
+      } catch (e) {
+        this.error$.next(e.error.message)
+      }
+    } else {
+      this.isError = true;
     }
   }
 

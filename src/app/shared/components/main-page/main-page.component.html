@@ -44,67 +44,40 @@
   <p>1. Не обновлять/перезагружать страницу</p>
   <p>2. Не использовать для навигации по игре кпоки "вперед" и "назад"</p>
   <p>
-    <strong
-      >При несоблюдении этих условий могут возникнуть технические проблемы и
-      результат не сохранится.</strong
-    >
+    <strong>При несоблюдении этих условий могут возникнуть технические проблемы и
+      результат не сохранится.</strong>
   </p>
   <br />
   <h3>Принять участие в игре может каждый желающий. Участие бесплатное.</h3>
   <form [formGroup]="form" (ngSubmit)="(startGame)">
     <h3>Для начала игры укажите Ваши данные</h3>
     <div class="form-group">
-      <input
-        formControlName="name"
-        type="text"
-        placeholder="Ваше ФИО"
-        name="name"
-        class="form-control block"
-        [ngClass]="{
+      <input formControlName="name" type="text" placeholder="Ваше ФИО" name="name" class="form-control block" [ngClass]="{
           is_invalid: form.get('name').invalid && form.get('name').touched,
           is_valid: !form.get('name').invalid && form.get('name').touched
-        }"
-      />
+        }" />
     </div>
     <div class="form-group">
-      <input
-        formControlName="link"
-        type="text"
-        placeholder="Адрес электронной почты или ссылка на VK"
-        name="link"
-        class="form-control block"
-        [ngClass]="{
+      <input formControlName="link" type="text" placeholder="Адрес электронной почты или ссылка на VK" name="link"
+        class="form-control block" [ngClass]="{
           is_invalid: form.get('link').invalid && form.get('link').touched,
           is_valid: !form.get('link').invalid && form.get('link').touched
-        }"
-      />
+        }" />
     </div>
     <div class="form-group personalData">
-      <input
-        formControlName="personalData"
-        type="checkbox"
-        name="personalData"
-      />
-      <label for="personalData"
-        ><a
-          class="white"
-          href="https://iv-obdu.ru/upload/iblock/f90/f903f9edd877ded2ab034777a12328f6.pdf"
-          target="_blanck"
-          >Нажимая кнопку отправки данных формы, я даю свое согласие ИОБДЮ на
+      <input formControlName="personalData" type="checkbox" name="personalData" />
+      <label for="personalData"><a class="white"
+          href="https://iv-obdu.ru/upload/iblock/f90/f903f9edd877ded2ab034777a12328f6.pdf" target="_blanck">Нажимая
+          кнопку отправки данных формы, я даю свое согласие ИОБДЮ на
           обработку моих персональных данных, в соответствии с Федеральным
           законом от 27.07.2006 года № 152-ФЗ «О персональных данных», на
           условиях и для целей, определенных Положением об обработке
-          персональных данных</a
-        ></label
-      >
+          персональных данных</a></label>
     </div>
-    <button
-      (click)="startGame()"
-      [disabled]="form.invalid"
-      class="btn btn-white block"
-    >
+    <button (click)="startGame()" [disabled]="form.invalid" class="btn btn-white block">
       Начать игру
     </button>
+    <p class="white center" *ngIf="isError">Пожалуйста, заполните все поля!</p>
   </form>
 </section>
 
@@ -112,22 +85,16 @@
   <div>
     <h2 class="red">Экспедиция памяти</h2>
     <a [routerLink]="['/admin/login']" class="black">Зайти как администратор</a>
-    <small
-      >Молодежный центр Ивановской областной библиотеки для детей и
-      юношества</small
-    >
+    <small>Молодежный центр Ивановской областной библиотеки для детей и
+      юношества</small>
     <small>{{ date.getFullYear() }}</small>
   </div>
   <ul>
     <li>
-      <a href="https://vk.com/likehome37" target="_blanck"
-        ><i class="fab fa-vk"></i
-      ></a>
+      <a href="https://vk.com/likehome37" target="_blanck"><i class="fab fa-vk"></i></a>
     </li>
     <li>
-      <a href="https://www.instagram.com/mc_iobdu/" target="_blanck"
-        ><i class="fab fa-instagram"></i
-      ></a>
+      <a href="https://www.instagram.com/mc_iobdu/" target="_blanck"><i class="fab fa-instagram"></i></a>
     </li>
   </ul>
 </footer>
