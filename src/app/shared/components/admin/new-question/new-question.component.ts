@@ -72,7 +72,13 @@ export class NewQuestionComponent implements OnInit {
   }
 
   async createQuestion() {
+    if (this.form.value.URLVideo.trim() == "") {
+      this.form.value.URLVideo = 'simple'
+    }
     if (Object.values(this.form.value).every(el => el.toString().trim())) {
+      if (this.form.value.URLVideo.trim() == "simple") {
+        this.form.value.URLVideo = ''
+      }
       this.isError = false;
       this.form.value['picture'] = this.filename
       try {
