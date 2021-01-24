@@ -1,10 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RefDirective } from 'src/app/shared/directives/ref.directive';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { QuestionService } from 'src/app/shared/services/question.service';
-import { AlertComponent } from '../../alert/alert.component';
 
 import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
@@ -32,7 +30,6 @@ import { Subject } from 'rxjs';
 })
 export class QuestionsComponent implements OnInit {
 
-  @ViewChild(RefDirective, { static: false }) refDir: RefDirective
   public error$: Subject<string> = new Subject<string>();
 
   form:FormGroup
@@ -50,8 +47,10 @@ export class QuestionsComponent implements OnInit {
   date = new Date();
   index;
   settings;
+  isShowMiniAlert = false;
+  alertText = '';
 
-  constructor(private questionServices: QuestionService, private adminServices: AdminService, private resolver: ComponentFactoryResolver) { }
+  constructor(private questionServices: QuestionService, private adminServices: AdminService) { }
 
   async ngOnInit() {
     // this.settings['numberOfCategories'] = 5;
@@ -69,12 +68,10 @@ export class QuestionsComponent implements OnInit {
       this.categories = await this.adminServices.admincategories();
       this.settings = await this.adminServices.settings();
     } catch (e) {
-      const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
-      this.refDir.containerRef.clear();
-      const component = this.refDir.containerRef.createComponent(alertFactory);
-      component.instance.title = "К сожалению, произошла небольшая ошибка"
+      this.alertText = "К сожалению, произошла небольшая ошибка";
+      this.isShowMiniAlert = true;
       setTimeout(() => {
-        this.refDir.containerRef.clear();
+        this.isShowMiniAlert = false;
       }, 5000)
     }
     this.loading = false;
@@ -85,20 +82,19 @@ export class QuestionsComponent implements OnInit {
       await this.questionServices.deleteQuestion(this.idQuestion);
       let index = this.questions.findIndex(el => el.id == this.idQuestion);
       this.questions.splice(index, 1);
-      const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
-      this.refDir.containerRef.clear();
-      const component = this.refDir.containerRef.createComponent(alertFactory);
-      component.instance.title = "Вы успешно удалили вопрос";
       this.isShowDeletePopup = false;
+      this.alertText = "Вы успешно удалил вопрос";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
     } catch (e) {
-      const alertFactory = this.resolver.resolveComponentFactory(AlertComponent);
-      this.refDir.containerRef.clear();
-      const component = this.refDir.containerRef.createComponent(alertFactory);
-      component.instance.title = "К сожалению, произошла небольшая ошибка"
+      this.alertText = "К сожалению, произошла небольшая ошибка";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
     }
-    setTimeout(() => {
-      this.refDir.containerRef.clear();
-    }, 5000)
   }
 
   deletePopupQuestion(id) {
@@ -115,8 +111,18 @@ export class QuestionsComponent implements OnInit {
       let cat = await this.adminServices.newCategory(this.form.value)
       this.form.reset();
       this.categories.push(cat);
+      this.alertText = "Вы успешно добавили новую категорию";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
     } catch (e) {
       this.error$.next(e.error.message)
+      this.alertText = "К сожалению, произошла небольшая ошибка";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
     }
   }
 
@@ -131,7 +137,17 @@ export class QuestionsComponent implements OnInit {
       await this.adminServices.editCategory(this.category);
       this.categories.find(el => el.id == this.category.id).name = this.category.name;
       this.isCategoryEdit[this.index]  = false;
+      this.alertText = "Вы успешно изменили название категории";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
     } catch (e) {
+      this.alertText = "К сожалению, произошла небольшая ошибка";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
     }
   }
 
@@ -167,7 +183,18 @@ export class QuestionsComponent implements OnInit {
       await this.adminServices.newSetting(this.settings);
       this.isSettingsEdit[0] = false;
       this.isSettingsEdit[1] = false;
-    } catch(e) {}
+      this.alertText = "Вы успешно изменили настройки";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
+    } catch(e) {
+      this.alertText = "К сожалению, произошла небольшая ошибка";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
+    }
   }
 
   showPopupDeleteAllQuestions() {
@@ -183,7 +210,18 @@ export class QuestionsComponent implements OnInit {
       await this.adminServices.deleteQuestions();
       this.questions = [];
       this.closeDeleteAllQuestions();
-    } catch(e) {}
+      this.alertText = "Вы успешно удалили все вопросы";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
+    } catch(e) {
+      this.alertText = "К сожалению, произошла небольшая ошибка";
+      this.isShowMiniAlert = true;
+      setTimeout(() => {
+        this.isShowMiniAlert = false;
+      }, 5000)
+    }
   }
 
 }

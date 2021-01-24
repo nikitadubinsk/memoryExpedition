@@ -4,26 +4,13 @@
     <h4 *ngIf="!isSettingsEdit[0]">
       Количество категорий: {{ settings.numberOfCategories }}
     </h4>
-    <input
-      type="number"
-      placeholder="0"
-      [(ngModel)]="settings.numberOfCategories"
-      class="form-control"
-      *ngIf="isSettingsEdit[0]"
-    />
-    <button
-      class="btn btn-primary"
-      *ngIf="!isSettingsEdit[0]"
-      (click)="editSettings(0)"
-    >
+    <input type="number" placeholder="0" [(ngModel)]="settings.numberOfCategories" class="form-control"
+      *ngIf="isSettingsEdit[0]" />
+    <button class="btn btn-primary" *ngIf="!isSettingsEdit[0]" (click)="editSettings(0)">
       Изменить
     </button>
-    <button
-      class="btn btn-primary"
-      (click)="saveSettings()"
-      *ngIf="isSettingsEdit[0]"
-      [disabled]="!settings.numberOfCategories"
-    >
+    <button class="btn btn-primary" (click)="saveSettings()" *ngIf="isSettingsEdit[0]"
+      [disabled]="!settings.numberOfCategories">
       Сохранить
     </button>
   </div>
@@ -31,26 +18,13 @@
     <h4 *ngIf="!isSettingsEdit[1]">
       Количество вопросов в одной категории: {{ settings.numberOfQuestions }}
     </h4>
-    <input
-      type="number"
-      placeholder="0"
-      [(ngModel)]="settings.numberOfQuestions"
-      class="form-control"
-      *ngIf="isSettingsEdit[1]"
-    />
-    <button
-      class="btn btn-primary"
-      *ngIf="!isSettingsEdit[1]"
-      (click)="editSettings(1)"
-    >
+    <input type="number" placeholder="0" [(ngModel)]="settings.numberOfQuestions" class="form-control"
+      *ngIf="isSettingsEdit[1]" />
+    <button class="btn btn-primary" *ngIf="!isSettingsEdit[1]" (click)="editSettings(1)">
       Изменить
     </button>
-    <button
-      class="btn btn-primary"
-      (click)="saveSettings()"
-      *ngIf="isSettingsEdit[1]"
-      [disabled]="!settings.numberOfQuestions"
-    >
+    <button class="btn btn-primary" (click)="saveSettings()" *ngIf="isSettingsEdit[1]"
+      [disabled]="!settings.numberOfQuestions">
       Сохранить
     </button>
   </div>
@@ -71,34 +45,19 @@
       Вопросы категории "{{ cat.name }}"
     </h3>
     <div class="edit-category">
-      <input
-        *ngIf="isCategoryEdit[i]"
-        type="text"
-        placeholder="Название категории"
-        [(ngModel)]="category.name"
-        class="form-control"
-      />
-      <button
-        class="btn btn-alternate"
-        (click)="editCategoryName(i)"
-        *ngIf="!isCategoryEdit[i]"
-      >
+      <input *ngIf="isCategoryEdit[i]" type="text" placeholder="Название категории" [(ngModel)]="category.name"
+        class="form-control" />
+      <button class="btn" (click)="editCategoryName(i)" *ngIf="!isCategoryEdit[i]"
+        [ngClass]="{ 'btn-gray': i + 1 > settings.numberOfCategories, 'btn-alternate': i + 1 <= settings.numberOfCategories }">
         Редактировать название категории
       </button>
-      <button
-        class="btn btn-alternate"
-        [disabled]="!category.name.trim()"
-        (click)="saveCategoryName()"
-        *ngIf="isCategoryEdit[i]"
-      >
+      <button class="btn btn-alternate" [disabled]="!category.name.trim()" (click)="saveCategoryName()"
+        *ngIf="isCategoryEdit[i]">
         Сохранить название категории
       </button>
     </div>
-    <div
-      *ngFor="let question of questions | category: cat.id; let idx = index"
-      class="one-question"
-      [ngClass]="{ disabled: idx + 1 > settings.numberOfQuestions }"
-    >
+    <div *ngFor="let question of questions | category: cat.id; let idx = index" class="one-question"
+      [ngClass]="{ disabled: idx + 1 > settings.numberOfQuestions || i + 1 > settings.numberOfCategories }">
       <p>{{ idx + 1 }}. {{ question.text }}</p>
       <p><strong>Стоимость:</strong> {{ question.cost }}</p>
       <p><strong>Варианты ответа</strong></p>
@@ -111,41 +70,22 @@
       <p [ngClass]="{ correctAnswer: question.correctAnswer == 3 }">
         {{ question.answer3 }}
       </p>
-      <i
-        class="fab fa-youtube"
-        *ngIf="question.URLVideo"
-        data-title="Данный вопрос содержит видео"
-      ></i>
-      <i
-        *ngIf="question.picture"
-        class="fas fa-images"
-        data-title="Данный вопрос содержит изображение"
-      ></i>
-      <button
-        class="btn btn-primary"
-        (click)="deletePopupQuestion(question.id)"
-      >
+      <i class="fab fa-youtube" *ngIf="question.URLVideo" data-title="Данный вопрос содержит видео"></i>
+      <i *ngIf="question.picture" class="fas fa-images" data-title="Данный вопрос содержит изображение"></i>
+      <button class="btn" (click)="deletePopupQuestion(question.id)"
+        [ngClass]="{ 'btn-gray': idx + 1 > settings.numberOfQuestions || i + 1 > settings.numberOfCategories, 'btn-primary': idx + 1 <= settings.numberOfQuestions && i + 1 <= settings.numberOfCategories }">
         Удалить вопрос
       </button>
     </div>
   </div>
   <br />
-  <form
-    [formGroup]="form"
-    (ngSubmit)="(createCategory)"
-    *ngIf="categories.length < settings.numberOfCategories"
-  >
+  <form [formGroup]="form" (ngSubmit)="(createCategory)" *ngIf="categories.length < settings.numberOfCategories">
     <h2>Добавить новую категорию</h2>
     <div class="form-error" *ngIf="error$ | async as error">
       {{ error }}
     </div>
     <div class="form-group">
-      <input
-        type="text"
-        formControlName="name"
-        class="form-control"
-        placeholder="Название категории"
-      />
+      <input type="text" formControlName="name" class="form-control" placeholder="Название категории" />
     </div>
     <button class="btn btn-primary" (click)="createCategory()">
       Сохранить категорию
@@ -156,8 +96,6 @@
 <div class="loading container" *ngIf="loading">
   <h2 class="red">Загрузка...</h2>
 </div>
-
-<ng-template appRef></ng-template>
 
 <div class="blackScreen" [@popup]="" *ngIf="isShowDeletePopup">
   <div class="modal">
@@ -194,3 +132,5 @@
     </button>
   </div>
 </div>
+
+<app-minialert [@popup]="" *ngIf="isShowMiniAlert" [text]="alertText"></app-minialert>

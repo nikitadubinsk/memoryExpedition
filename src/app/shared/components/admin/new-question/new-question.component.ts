@@ -43,23 +43,26 @@ export class NewQuestionComponent implements OnInit {
   form: FormGroup;
   public error$: Subject<string> = new Subject<string>();
   categories;
+  loading = false;
 
   constructor(private questionService: QuestionService, private adminService: AdminService, private resolver: ComponentFactoryResolver) { }
 
   async ngOnInit() {
+    this.loading = true;
+    this.form = new FormGroup({
+      text: new FormControl('', [Validators.required]),
+      category_id: new FormControl('', [Validators.required]),
+      cost: new FormControl('', [Validators.required]),
+      answer1: new FormControl('', [Validators.required]),
+      answer2: new FormControl('', [Validators.required]),
+      answer3: new FormControl('', [Validators.required]),
+      correctAnswer: new FormControl('', [Validators.required]),
+      URLVideo: new FormControl('', []),
+    });
     try {
       this.categories = await this.questionService.categories();
-      this.form = new FormGroup({
-        text: new FormControl('', [Validators.required]),
-        category_id: new FormControl('', [Validators.required]),
-        cost: new FormControl('', [Validators.required]),
-        answer1: new FormControl('', [Validators.required]),
-        answer2: new FormControl('', [Validators.required]),
-        answer3: new FormControl('', [Validators.required]),
-        correctAnswer: new FormControl('', [Validators.required]),
-        URLVideo: new FormControl('', []),
-      });
     } catch(e) {}
+    this.loading = false;
   }
 
   // Функция, возвращение имени загруженного файла

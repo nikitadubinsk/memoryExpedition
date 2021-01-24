@@ -16,6 +16,7 @@ import { AllPlayersComponent } from '../../components/admin/chart/all-players/al
 import { PointsComponent } from '../../components/admin/chart/points/points.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { QuestionsComponent } from '../../components/admin/questions/questions.component';
+import { MinialertComponent } from '../../components/admin/minialert/minialert.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { QuestionsComponent } from '../../components/admin/questions/questions.c
     StatisticsComponent,
     AllPlayersComponent,
     PointsComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    MinialertComponent
   ],
   imports: [
     CommonModule,

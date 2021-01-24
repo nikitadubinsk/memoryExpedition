@@ -22,6 +22,10 @@
   }
 }
 
+.center {
+  text-align: center;
+}
+
 .row {
   display: flex;
 }
@@ -110,6 +114,20 @@ ul {
 
     &:disabled {
       color: $gray;
+    }
+  }
+
+  &-gray {
+    color: $gray;
+    background: $white;
+    border: 1px solid $gray;
+
+    &:hover {
+      color: rgb(175, 175, 175);
+    }
+
+    &:disabled {
+      color: #ccc;
     }
   }
 
