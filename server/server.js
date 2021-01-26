@@ -206,11 +206,11 @@ const Questions = sequelize.define("Questions", {
   }
 })
 
-Questions.hasOne(Categories, {
+Questions.belongsTo(Categories, {
   foreignKey: "category_id",
   as: "category"
 });
-Categories.belongsTo(Questions, {
+Categories.hasOne(Questions, {
   foreignKey: "category_id",
   as: "category"
 });

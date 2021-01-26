@@ -54,8 +54,6 @@ export class QuestionsComponent implements OnInit {
   constructor(private questionServices: QuestionService, private adminServices: AdminService) { }
 
   async ngOnInit() {
-    // this.settings['numberOfCategories'] = 5;
-    // this.settings['numberOfQuestions'] = 6;
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
     });
