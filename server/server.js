@@ -312,16 +312,25 @@ app.post("/api/newquestion", async (req, res) => {
 
 app.post("/api/newuser", async (req, res) => {
   try {
-    let result = await Users.create({
-      email: req.body.email,
-      password: req.body.password,
+    let count = await Users.count({
+      where: { email: req.body.email }
     });
-    res.send(result)
+    if (count == 0) {
+      let result = await Users.create({
+        email: req.body.email,
+        password: req.body.password,
+      });
+      res.send(result)
+    } else {
+      res.status(500).send({
+        message: "Данный пользователь уже зарегестрирован"
+      })
+    }
   }
   catch (e) {
     console.error(e);
     res.status(500).send({
-      message: "Произошла небольшая ошибка во время создания нового пользователя"
+      message: `Произошла небольшая ошибка во время создания нового пользователя ${e.message}`
     })
   }
 })
